@@ -10,12 +10,15 @@ FIND_PACKAGE(wxWidgets COMPONENTS core base REQUIRED)
 ##---------------------------------------------------
 
 # wxWidgets include directory
-INCLUDE_DIRECTORIES(${wxWidgets_INCLUDE_DIRS})
+INCLUDE_DIRECTORIES(
+  include
+  ${wxWidgets_INCLUDE_DIRS}
+)
 
 # add wxWidgets definitions
 ADD_DEFINITIONS(${wxWidgets_DEFINITIONS})
 
-# lam-pam-pam
+# Everybody walks the dinosaur
 FILE(GLOB SRCS src/*.cpp)
 FILE(GLOB HDRS include/*.hpp)
 
@@ -27,3 +30,4 @@ ADD_EXECUTABLE(sharmanka
 )
 
 TARGET_LINK_LIBRARIES(sharmanka ${wxWidgets_LIBRARIES})
+SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
