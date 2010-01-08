@@ -24,7 +24,7 @@ ADD_CUSTOM_COMMAND(
   OUTPUT _shr_gui.h _shr_gui.cpp
   COMMAND wxformbuilder -g sharmanka.fbp
   DEPENDS sharmanka.fbp
-  WORKING_DIRECTORY {$CMAKE_SOURCE_DIR}
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 
 # Common everybody!
