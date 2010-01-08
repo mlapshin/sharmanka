@@ -1,12 +1,15 @@
 #include "shr/Prerequisites.hpp"
-#include "shr/MainWindow.hpp"
+#include "shr/gui/MainWindow.hpp"
 
 namespace shr
 {
+namespace gui
+{
 
 MainWindow::MainWindow()
-  : wxFrame(NULL, -1, _T("Шарманка"), wxDefaultPosition, wxDefaultSize)
+  : MainWindowBase(NULL)
 {
 }
 
+}
 }

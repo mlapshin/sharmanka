@@ -4,6 +4,8 @@
 namespace shr
 {
 
+namespace gui { class MainWindow; }
+
 class MainWindow;
 
 class Application : public wxApp
@@ -12,7 +14,7 @@ class Application : public wxApp
 
   virtual bool OnInit();
 
-  MainWindow* m_main_window;
+  gui::MainWindow* m_main_window;
 };
 
 };

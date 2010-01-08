@@ -11,6 +11,7 @@ FIND_PACKAGE(wxWidgets COMPONENTS core base REQUIRED)
 
 # wxWidgets include directory
 INCLUDE_DIRECTORIES(
+  .
   include
   ${wxWidgets_INCLUDE_DIRS}
 )
@@ -18,13 +19,21 @@ INCLUDE_DIRECTORIES(
 # add wxWidgets definitions
 ADD_DEFINITIONS(${wxWidgets_DEFINITIONS})
 
-# Everybody walks the dinosaur
+# Custom target to generate GUI sources from wxFormBuilder project
+ADD_CUSTOM_COMMAND(
+  OUTPUT _shr_gui.h _shr_gui.cpp
+  COMMAND wxformbuilder -g sharmanka.fbp
+  DEPENDS sharmanka.fbp
+)
+
+# Common everybody!
 FILE(GLOB SRCS src/*.cpp _shr_gui.cpp)
 FILE(GLOB HDRS include/*.hpp _shr_gui.h)
 
 # Here we define the executable minimal.exe or minimal on other systems
 # the above paths and defines will be used in this build
-ADD_EXECUTABLE(sharmanka
+ADD_EXECUTABLE(
+  sharmanka
   ${SRCS}
   ${HDRS}
 )
