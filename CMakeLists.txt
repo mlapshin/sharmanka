@@ -19,8 +19,8 @@ INCLUDE_DIRECTORIES(
 ADD_DEFINITIONS(${wxWidgets_DEFINITIONS})
 
 # Everybody walks the dinosaur
-FILE(GLOB SRCS src/*.cpp)
-FILE(GLOB HDRS include/*.hpp)
+FILE(GLOB SRCS src/*.cpp _shr_gui.cpp)
+FILE(GLOB HDRS include/*.hpp _shr_gui.h)
 
 # Here we define the executable minimal.exe or minimal on other systems
 # the above paths and defines will be used in this build

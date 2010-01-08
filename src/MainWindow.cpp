@@ -5,7 +5,7 @@ namespace shr
 {
 
 MainWindow::MainWindow()
-  : wxFrame((wxFrame *) NULL, -1, _T("Шарманка"), wxDefaultPosition, wxDefaultSize)
+  : wxFrame(NULL, -1, _T("Шарманка"), wxDefaultPosition, wxDefaultSize)
 {
 }
 
