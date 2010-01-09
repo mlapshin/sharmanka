@@ -32,6 +32,9 @@ ADD_EXECUTABLE(sharmanka
   ${HDRS}
 )
 
+ADD_EXECUTABLE(dummy src/debug/Dummy.cpp src/MADWork.cpp src/PortAudio.cpp ${HDRS})
+
 TARGET_LINK_LIBRARIES(sharmanka ${wxWidgets_LIBRARIES} ${MAD_LIBRARY})
+TARGET_LINK_LIBRARIES(dummy ${MAD_LIBRARY})
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
