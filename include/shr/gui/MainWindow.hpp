@@ -12,6 +12,8 @@ class MainWindow: public MainWindowBase
 {
  public:
   MainWindow();
+
+  virtual void foo( wxCommandEvent& event );
 };
 
 }

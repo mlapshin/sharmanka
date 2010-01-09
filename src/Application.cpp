@@ -9,11 +9,11 @@ namespace shr
 
 bool Application::OnInit()
 {
-  wxFrame *frame = new gui::MainWindow;
-  frame->CreateStatusBar();
-  frame->SetStatusText(_T("Hello World"));
-  frame->Show(true);
-  SetTopWindow(frame);
+  wxInitAllImageHandlers(); // TODO: we need only PNG here
+
+  m_main_window = new gui::MainWindow;
+  SetTopWindow(m_main_window);
+  m_main_window->Show(true);
   return true;
 }
 

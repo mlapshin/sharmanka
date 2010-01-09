@@ -3,7 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 PROJECT(sharmanka)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
-FIND_PACKAGE(wxWidgets COMPONENTS core base REQUIRED)
+FIND_PACKAGE(wxWidgets COMPONENTS core base richtext REQUIRED)
 
 ##---------------------------------------------------
 ## Actual config file starts here
