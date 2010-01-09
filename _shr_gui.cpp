@@ -79,13 +79,8 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	
 	this->SetSizer( bSizer8 );
 	this->Layout();
-	
-	// Connect Events
-	m_bpButton6->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindowBase::foo ), NULL, this );
 }
 
 MainWindowBase::~MainWindowBase()
 {
-	// Disconnect Events
-	m_bpButton6->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindowBase::foo ), NULL, this );
 }

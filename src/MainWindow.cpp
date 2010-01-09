@@ -36,9 +36,5 @@ MainWindow::MainWindow()
   m_songTitle->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWFRAME));
 }
 
-void MainWindow::foo( wxCommandEvent& event ) {
-  m_songTitle->SetScrollbar(wxVERTICAL, 0, 0, 50);
-}
-
 }
 }

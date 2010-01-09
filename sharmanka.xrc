@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<resource version="2.8.10">
+  <object class="wxBitmap">bitmaps/icons/control.png</object>
+</resource>
