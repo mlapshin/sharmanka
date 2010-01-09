@@ -6,6 +6,8 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 FIND_PACKAGE(wxWidgets COMPONENTS core base REQUIRED)
 FIND_LIBRARY(MAD_LIBRARY mad)
 FIND_PATH(MAD_INCLUDE_PATH mad.h)
+FIND_LIBRARY(PORT_LIBRARY portaudiocpp)
+FIND_PATH(PORT_INCLUDE_PATH portaudiocpp/PortAudioCpp.hxx)
 
 ##---------------------------------------------------
 ## Actual config file starts here
@@ -34,7 +36,7 @@ ADD_EXECUTABLE(sharmanka
 
 ADD_EXECUTABLE(dummy src/debug/Dummy.cpp src/MADWork.cpp src/PortAudio.cpp ${HDRS})
 
-TARGET_LINK_LIBRARIES(sharmanka ${wxWidgets_LIBRARIES} ${MAD_LIBRARY})
-TARGET_LINK_LIBRARIES(dummy ${MAD_LIBRARY})
+TARGET_LINK_LIBRARIES(sharmanka ${wxWidgets_LIBRARIES} ${MAD_LIBRARY} ${PORT_LIBRARY})
+TARGET_LINK_LIBRARIES(dummy ${MAD_LIBRARY} ${PORT_LIBRARY})
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
