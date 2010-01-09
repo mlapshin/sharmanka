@@ -4,6 +4,8 @@ PROJECT(sharmanka)
 
 SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
 FIND_PACKAGE(wxWidgets COMPONENTS core base REQUIRED)
+FIND_LIBRARY(MAD_LIBRARY mad)
+FIND_PATH(MAD_INCLUDE_PATH mad.h)
 
 ##---------------------------------------------------
 ## Actual config file starts here
@@ -13,6 +15,7 @@ FIND_PACKAGE(wxWidgets COMPONENTS core base REQUIRED)
 INCLUDE_DIRECTORIES(
   include
   ${wxWidgets_INCLUDE_DIRS}
+  ${MAD_INCLUDE_PATH}
 )
 
 # add wxWidgets definitions
@@ -29,5 +32,6 @@ ADD_EXECUTABLE(sharmanka
   ${HDRS}
 )
 
-TARGET_LINK_LIBRARIES(sharmanka ${wxWidgets_LIBRARIES})
+TARGET_LINK_LIBRARIES(sharmanka ${wxWidgets_LIBRARIES} ${MAD_LIBRARY})
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
+
