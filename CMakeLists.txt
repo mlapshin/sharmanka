@@ -37,6 +37,11 @@ ADD_CUSTOM_COMMAND(
   COMMENT "Compiling resource files"
 )
 
+ADD_CUSTOM_TARGET(
+  lampampam
+  DEPENDS ${CMAKE_SOURCE_DIR}/_resources.cpp ${CMAKE_SOURCE_DIR}/_shr_gui.cpp ${CMAKE_SOURCE_DIR}/_shr_gui.h
+)
+
 # Common everybody
 FILE(GLOB SRCS src/*.cpp)
 FILE(GLOB HDRS include/*.hpp)

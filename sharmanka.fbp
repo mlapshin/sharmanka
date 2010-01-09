@@ -136,7 +136,7 @@
                                 <event name="OnSize"></event>
                                 <event name="OnUpdateUI"></event>
                                 <object class="tool" expanded="1">
-                                    <property name="bitmap">../fugue/icons/control.png; Load From File</property>
+                                    <property name="bitmap">bitmaps/icons/control.png; Load From File</property>
                                     <property name="id">wxID_ANY</property>
                                     <property name="kind">wxITEM_CHECK</property>
                                     <property name="label">tool</property>
@@ -150,7 +150,7 @@
                                     <event name="OnUpdateUI"></event>
                                 </object>
                                 <object class="tool" expanded="1">
-                                    <property name="bitmap">../fugue/icons/control-skip-180.png; Load From File</property>
+                                    <property name="bitmap">bitmaps/icons/control-skip-180.png; Load From File</property>
                                     <property name="id">wxID_ANY</property>
                                     <property name="kind">wxITEM_NORMAL</property>
                                     <property name="label">tool</property>
@@ -164,7 +164,7 @@
                                     <event name="OnUpdateUI"></event>
                                 </object>
                                 <object class="tool" expanded="1">
-                                    <property name="bitmap">../fugue/icons/control-skip.png; Load From File</property>
+                                    <property name="bitmap">bitmaps/icons/control-skip.png; Load From File</property>
                                     <property name="id">wxID_ANY</property>
                                     <property name="kind">wxITEM_NORMAL</property>
                                     <property name="label">tool</property>
@@ -179,7 +179,7 @@
                                 </object>
                                 <object class="toolSeparator" expanded="1" />
                                 <object class="tool" expanded="1">
-                                    <property name="bitmap">../fugue/icons/arrow-repeat.png; Load From File</property>
+                                    <property name="bitmap">bitmaps/icons/arrow-repeat.png; Load From File</property>
                                     <property name="id">wxID_ANY</property>
                                     <property name="kind">wxITEM_RADIO</property>
                                     <property name="label">tool</property>
@@ -193,7 +193,7 @@
                                     <event name="OnUpdateUI"></event>
                                 </object>
                                 <object class="tool" expanded="1">
-                                    <property name="bitmap">../fugue/icons/arrow-switch.png; Load From File</property>
+                                    <property name="bitmap">bitmaps/icons/arrow-switch.png; Load From File</property>
                                     <property name="id">wxID_ANY</property>
                                     <property name="kind">wxITEM_RADIO</property>
                                     <property name="label">tool</property>
@@ -260,7 +260,7 @@
                                 <event name="OnSize"></event>
                                 <event name="OnUpdateUI"></event>
                                 <object class="tool" expanded="1">
-                                    <property name="bitmap">../fugue/icons/gear.png; Load From File</property>
+                                    <property name="bitmap">bitmaps/icons/gear.png; Load From File</property>
                                     <property name="id">wxID_ANY</property>
                                     <property name="kind">wxITEM_NORMAL</property>
                                     <property name="label">tool</property>
@@ -274,7 +274,7 @@
                                     <event name="OnUpdateUI"></event>
                                 </object>
                                 <object class="tool" expanded="1">
-                                    <property name="bitmap">../fugue/icons/speaker-volume.png; Load From File</property>
+                                    <property name="bitmap">bitmaps/icons/speaker-volume.png; Load From File</property>
                                     <property name="id">wxID_ANY</property>
                                     <property name="kind">wxITEM_NORMAL</property>
                                     <property name="label">tool</property>
@@ -622,7 +622,7 @@
                 </object>
                 <object class="sizeritem" expanded="1">
                     <property name="border">5</property>
-                    <property name="flag">wxALL|wxEXPAND</property>
+                    <property name="flag">wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT</property>
                     <property name="proportion">1</property>
                     <object class="wxListCtrl" expanded="1">
                         <property name="bg"></property>
