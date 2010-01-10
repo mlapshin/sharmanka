@@ -5,39 +5,20 @@ namespace shr {
 namespace gui {
 
 TrackList::TrackList(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& s, long style)
-    : wxListCtrl(parent, id, pos, s, wxLC_REPORT | wxSUNKEN_BORDER | wxVSCROLL)
+    : wxHtmlListBox(parent, id, pos, s, wxSUNKEN_BORDER)
 {
-  wxListItem header;
-  header.SetText(_T("Band"));
-  header.SetWidth(wxLIST_AUTOSIZE);
-  InsertColumn(0, header);
-
-  header.SetText(_T("Song"));
-  InsertColumn(1, header);
-
-  header.SetText(_T("Length"));
-  header.SetAlign(wxLIST_FORMAT_RIGHT);
-  InsertColumn(2, header);
-
-  for(int i = 0; i < 50; i++) {
-    wxString buf;
-    wxListItem item;
-
-    buf.Printf(_T("Band #%d"), i);
-    item.SetText(buf);
-    long foo = InsertItem(item);
-
-    buf.Printf(_T("Track #%d"), i);
-    SetItem(foo, 1, buf);
-
-    buf.Printf(_T("03:12"), i);
-    SetItem(foo, 2, buf);
-  }
+  SetItemCount(100);
+  SetMargins(3, 3);
 }
 
 TrackList::~TrackList()
 {
 
+}
+
+wxString TrackList::OnGetItem(size_t n) const
+{
+  return _T("<table width=100% cellpadding=0 cellspacing=0><tr><td><B>Гражданская Оборона</B> &mdash; Все идет по плану</td><td align=right>3:12</td></tr></table>");
 }
 
 }}

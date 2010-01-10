@@ -28,6 +28,7 @@ class TrackList;
 #include <wx/button.h>
 #include <wx/listctrl.h>
 #include <wx/frame.h>
+#include <wx/panel.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -57,6 +58,21 @@ namespace shr
 			public:
 				MainWindowBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Шарманка"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 604,564 ), long style = wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL, const wxString& name = wxT("SharmankaMain") );
 				~MainWindowBase();
+			
+		};
+		
+		///////////////////////////////////////////////////////////////////////////////
+		/// Class MyPanel1
+		///////////////////////////////////////////////////////////////////////////////
+		class MyPanel1 : public wxPanel 
+		{
+			private:
+			
+			protected:
+			
+			public:
+				MyPanel1( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL );
+				~MyPanel1();
 			
 		};
 		

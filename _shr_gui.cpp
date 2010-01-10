@@ -74,7 +74,7 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	
 	bSizer8->Add( bSizer11, 0, wxEXPAND, 5 );
 	
-	m_songs = new TrackList( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_NO_SORT_HEADER|wxLC_REPORT|wxSUNKEN_BORDER|wxVSCROLL );
+	m_songs = new TrackList( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_NO_HEADER|wxLC_NO_SORT_HEADER|wxLC_REPORT|wxSUNKEN_BORDER|wxVSCROLL );
 	bSizer8->Add( m_songs, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
 	this->SetSizer( bSizer8 );
@@ -82,5 +82,13 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 }
 
 MainWindowBase::~MainWindowBase()
+{
+}
+
+MyPanel1::MyPanel1( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
+{
+}
+
+MyPanel1::~MyPanel1()
 {
 }
