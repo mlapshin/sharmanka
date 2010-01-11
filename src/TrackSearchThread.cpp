@@ -16,7 +16,7 @@ TrackSearchThread::TrackSearchThread(wxEvtHandler* eventHandler)
   Create();
 }
 
-void* TrackSearchThread::Entry()
+wxString TrackSearchThread::GetPage(const wxString& path)
 {
   wxString result;
   wxHTTP http;
@@ -26,22 +26,33 @@ void* TrackSearchThread::Entry()
   http.SetTimeout(10);
 
   http.Connect(_T("vkontakte.ru"));
-  wxInputStream* httpStream = http.GetInputStream(_T("/id145958"));
 
-  if (http.GetError() == wxPROTO_NOERR && httpStream) {
-    char buf[BUFFER_SIZE];
-    size_t bytesRead = 0;
+  if(!TestDestroy()) {
+    wxInputStream* httpStream = http.GetInputStream(_T("/id145958"));
 
-    do {
-      bytesRead = httpStream->Read(buf, BUFFER_SIZE).LastRead();
-      result += wxString((const char*)buf, wxCSConv(wxT("windows-1251")), bytesRead);
-    } while (bytesRead == BUFFER_SIZE);
+    if (http.GetError() == wxPROTO_NOERR && http.GetResponse() == 200 && httpStream) {
+      char buf[BUFFER_SIZE];
+      size_t bytesRead = 0;
 
+      do {
+        bytesRead = httpStream->Read(buf, BUFFER_SIZE).LastRead();
+        result += wxString((const char*)buf, wxCSConv(wxT("windows-1251")), bytesRead);
+      } while (!TestDestroy() && bytesRead > 0);
+    } else {
+      // Nothing to do here?
+    }
+  }
+
+  return result;
+}
+
+void* TrackSearchThread::Entry()
+{
+  wxString page = GetPage(_T("/gsearch.php?section=audio&q=foo"));
+
+  if(page.Length() > 0) {
     wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, TSE_COMPLETED );
-    event.SetString(result);
-    event.SetInt(http.GetResponse());
     wxPostEvent( m_eventReceiver, event );
-
   } else {
     wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, TSE_ERROR );
     wxPostEvent( m_eventReceiver, event );

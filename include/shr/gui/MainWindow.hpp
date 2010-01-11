@@ -24,6 +24,8 @@ class MainWindow: public MainWindowBase
 
  private:
   TrackSearchThread* m_trackSearchThread;
+
+  void TerminateCurrentSearch();
 };
 
 }

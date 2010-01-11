@@ -15,18 +15,28 @@ MainWindow::MainWindow()
   m_songTitle->SetPage(_T("<font size='+1'><b>Белая горячка</b></font> &mdash; <i>Трогательные ножечки</i>"));
   m_songTitle->SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_WINDOWFRAME));
 
-  m_trackSearchThread = new TrackSearchThread(this);
   Connect(TSE_COMPLETED, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchCompleted) );
   Connect(TSE_ERROR, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchError) );
 }
 
 MainWindow::~MainWindow()
 {
-  delete m_trackSearchThread;
+  TerminateCurrentSearch();
+}
+
+void MainWindow::TerminateCurrentSearch()
+{
+  if (m_trackSearchThread != 0) {
+    m_trackSearchThread->Delete(); // wait for thread
+    delete m_trackSearchThread;
+    m_trackSearchThread = 0;
+  }
 }
 
 void MainWindow::OnSearchButtonClick( wxCommandEvent& event )
 {
+  TerminateCurrentSearch();
+  m_trackSearchThread = new TrackSearchThread(this);
   m_trackSearchThread->Run();
 }
 

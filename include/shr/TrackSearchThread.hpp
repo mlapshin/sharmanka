@@ -20,6 +20,8 @@ class TrackSearchThread : public wxThread
  private:
   wxEvtHandler* m_eventReceiver;
   virtual void* Entry();
+
+  wxString GetPage(const wxString& path);
 };
 
 }
