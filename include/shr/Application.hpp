@@ -10,11 +10,18 @@ class MainWindow;
 
 class Application : public wxApp
 {
+ public:
+
+  inline const wxString& GetSid() const {
+    return m_sid;
+  }
+
  private:
 
   virtual bool OnInit();
 
   gui::MainWindow* m_main_window;
+  wxString m_sid;
 };
 
 };

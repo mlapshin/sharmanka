@@ -79,10 +79,15 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	
 	this->SetSizer( bSizer8 );
 	this->Layout();
+	
+	// Connect Events
+	m_bpButton6->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindowBase::OnSearchButtonClick ), NULL, this );
 }
 
 MainWindowBase::~MainWindowBase()
 {
+	// Disconnect Events
+	m_bpButton6->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindowBase::OnSearchButtonClick ), NULL, this );
 }
 
 MyPanel1::MyPanel1( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )

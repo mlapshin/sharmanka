@@ -19,6 +19,9 @@ bool Application::OnInit()
   m_main_window = new gui::MainWindow;
   SetTopWindow(m_main_window);
   m_main_window->Show(true);
+
+  m_sid = argv[1];
+
   return true;
 }
 

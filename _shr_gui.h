@@ -54,6 +54,10 @@ namespace shr
 				wxTextCtrl* m_textCtrl1;
 				wxBitmapButton* m_bpButton6;
 				TrackList* m_songs;
+				
+				// Virtual event handlers, overide them in your derived class
+				virtual void OnSearchButtonClick( wxCommandEvent& event ){ event.Skip(); }
+				
 			
 			public:
 				MainWindowBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Шарманка"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 604,564 ), long style = wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL, const wxString& name = wxT("SharmankaMain") );
