@@ -66,16 +66,16 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	wxBoxSizer* bSizer11;
 	bSizer11 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_textCtrl1 = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer11->Add( m_textCtrl1, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	m_query = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer11->Add( m_query, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_bpButton6 = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("../fugue/icons/magnifier.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
 	bSizer11->Add( m_bpButton6, 0, wxTOP|wxBOTTOM|wxRIGHT|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	bSizer8->Add( bSizer11, 0, wxEXPAND, 5 );
 	
-	m_songs = new TrackList( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_NO_HEADER|wxLC_NO_SORT_HEADER|wxLC_REPORT|wxSUNKEN_BORDER|wxVSCROLL );
-	bSizer8->Add( m_songs, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
+	m_trackList = new shr::gui::TrackList( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_NO_HEADER|wxLC_NO_SORT_HEADER|wxLC_REPORT|wxSUNKEN_BORDER|wxVSCROLL );
+	bSizer8->Add( m_trackList, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
 	this->SetSizer( bSizer8 );
 	this->Layout();

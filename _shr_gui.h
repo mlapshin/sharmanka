@@ -8,7 +8,7 @@
 #ifndef ___shr_gui__
 #define ___shr_gui__
 
-class TrackList;
+namespace shr{ namespace gui{ class TrackList; } }
 
 #include <wx/string.h>
 #include <wx/bitmap.h>
@@ -51,9 +51,9 @@ namespace shr
 				wxStaticText* m_staticText6;
 				wxSlider* m_slider2;
 				
-				wxTextCtrl* m_textCtrl1;
+				wxTextCtrl* m_query;
 				wxBitmapButton* m_bpButton6;
-				TrackList* m_songs;
+				shr::gui::TrackList* m_trackList;
 				
 				// Virtual event handlers, overide them in your derived class
 				virtual void OnSearchButtonClick( wxCommandEvent& event ){ event.Skip(); }

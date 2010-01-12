@@ -2,6 +2,7 @@
 #define _TRACKSEARCHTHREAD_H_
 
 #include "wx/thread.h"
+#include "shr/Track.hpp"
 
 namespace shr
 {
@@ -15,11 +16,21 @@ enum {
 class TrackSearchThread : public wxThread
 {
  public:
-  TrackSearchThread(wxEvtHandler* eventReceiver);
+  TrackSearchThread(wxEvtHandler* eventReceiver, const wxString& query, int offset = 0);
+
+  inline const TrackVector& GetTracks() const
+  {
+    return m_tracks;
+  }
 
  private:
+  TrackVector m_tracks;
   wxEvtHandler* m_eventReceiver;
+  wxString m_query;
+  int m_offset;
+
   virtual void* Entry();
+  Track GetTrackFromAudioRow(const wxString& ar);
 
   wxString GetPage(const wxString& path);
 };

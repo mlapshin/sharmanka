@@ -2,6 +2,7 @@
 #include "shr/gui/MainWindow.hpp"
 
 #include "shr/TrackSearchThread.hpp"
+#include "shr/gui/TrackList.hpp"
 
 namespace shr
 {
@@ -35,10 +36,12 @@ void MainWindow::TerminateCurrentSearch()
 
 void MainWindow::OnSearchButtonClick( wxCommandEvent& event )
 {
-  TerminateCurrentSearch();
+  if (m_query->GetValue() != _T("")) {
+    TerminateCurrentSearch();
 
-  m_trackSearchThread = new TrackSearchThread(this);
-  m_trackSearchThread->Run();
+    m_trackSearchThread = new TrackSearchThread(this, m_query->GetValue(), 0);
+    m_trackSearchThread->Run();
+  }
 }
 
 void MainWindow::OnTrackSearchError( wxCommandEvent& event )
@@ -48,9 +51,7 @@ void MainWindow::OnTrackSearchError( wxCommandEvent& event )
 
 void MainWindow::OnTrackSearchCompleted( wxCommandEvent& event )
 {
-  wxString t;
-  t.Printf(_T("%d"), event.GetInt());
-  wxMessageBox(t + _T(":\n\n") + event.GetString().Mid(0, 10));
+  m_trackList->SetTracks(m_trackSearchThread->GetTracks());
 }
 
 

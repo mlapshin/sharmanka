@@ -7,7 +7,6 @@ namespace shr
 Track::Track(const wxString& artist, const wxString& title, int duration, const wxString& serverId, const wxString& userId, const wxString& fileName)
     : m_artist(artist), m_title(title), m_duration(duration), m_serverId(serverId), m_userId(userId), m_fileName(fileName)
 {
-
 }
 
 Track::Track(const Track& track)

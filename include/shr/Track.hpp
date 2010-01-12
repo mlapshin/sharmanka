@@ -1,6 +1,8 @@
 #ifndef _TRACK_H_
 #define _TRACK_H_
 
+#include <vector>
+
 namespace shr
 {
 
@@ -9,7 +11,7 @@ class Track
  public:
   Track(const wxString& artist, const wxString& title, int duration, const wxString& serverId, const wxString& userId, const wxString& fileName);
   Track(const Track& trck);
-  ~Track();
+  ~Track() {}
 
   inline const wxString& GetArtist() const
   {
@@ -41,8 +43,9 @@ class Track
     return m_fileName;
   }
 
-  inline wxString GetFileURL() const {
-    _T("http://cs") + m_serverId + _T(".vkontakte.ru/u") + m_userId + _T("/audio/") + m_fileName + _T(".mp3");
+  inline wxString GetFileURL() const
+  {
+    return _T("http://cs") + m_serverId + _T(".vkontakte.ru/u") + m_userId + _T("/audio/") + m_fileName + _T(".mp3");
   }
 
   const Track& operator=(const Track& rhs);
@@ -56,6 +59,8 @@ class Track
   wxString m_userId;
   wxString m_fileName;
 };
+
+typedef std::vector<Track> TrackVector;
 
 }
 
