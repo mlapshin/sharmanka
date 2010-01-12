@@ -114,6 +114,8 @@ void* TrackSearchThread::Entry()
     }
   }
 
+  std::cout << m_tracks.size() << " tracks found" << std::endl;
+
   if(page.Length() > 0) {
     wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, TSE_COMPLETED );
     wxPostEvent( m_eventReceiver, event );

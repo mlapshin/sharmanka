@@ -9,7 +9,6 @@ wxString URLDecode(const wxString &value);
 wxString URLEncode(const wxString &value);
 wxString HexFromInt(const int &value);
 
-
 }
 
 #endif /* _STRINGUTIL_H_ */

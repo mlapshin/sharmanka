@@ -17,7 +17,7 @@ class MainWindow: public MainWindowBase
   MainWindow();
   ~MainWindow();
 
-  virtual void OnSearchButtonClick( wxCommandEvent& event );
+  void OnQueryEnter( wxCommandEvent& event );
 
   void OnTrackSearchError( wxCommandEvent& event );
   void OnTrackSearchCompleted( wxCommandEvent& event );

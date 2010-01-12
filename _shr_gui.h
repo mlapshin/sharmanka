@@ -24,8 +24,6 @@ namespace shr{ namespace gui{ class TrackList; } }
 #include <wx/stattext.h>
 #include <wx/slider.h>
 #include <wx/textctrl.h>
-#include <wx/bmpbuttn.h>
-#include <wx/button.h>
 #include <wx/listctrl.h>
 #include <wx/frame.h>
 #include <wx/panel.h>
@@ -52,11 +50,10 @@ namespace shr
 				wxSlider* m_slider2;
 				
 				wxTextCtrl* m_query;
-				wxBitmapButton* m_bpButton6;
 				shr::gui::TrackList* m_trackList;
 				
 				// Virtual event handlers, overide them in your derived class
-				virtual void OnSearchButtonClick( wxCommandEvent& event ){ event.Skip(); }
+				virtual void OnQueryEnter( wxCommandEvent& event ){ event.Skip(); }
 				
 			
 			public:

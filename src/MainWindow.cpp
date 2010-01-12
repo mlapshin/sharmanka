@@ -34,7 +34,7 @@ void MainWindow::TerminateCurrentSearch()
   }
 }
 
-void MainWindow::OnSearchButtonClick( wxCommandEvent& event )
+void MainWindow::OnQueryEnter( wxCommandEvent& event )
 {
   if (m_query->GetValue() != _T("")) {
     TerminateCurrentSearch();

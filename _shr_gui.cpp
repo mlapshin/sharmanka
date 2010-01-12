@@ -66,11 +66,8 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	wxBoxSizer* bSizer11;
 	bSizer11 = new wxBoxSizer( wxHORIZONTAL );
 	
-	m_query = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
+	m_query = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );
 	bSizer11->Add( m_query, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
-	
-	m_bpButton6 = new wxBitmapButton( this, wxID_ANY, wxBitmap( wxT("../fugue/icons/magnifier.png"), wxBITMAP_TYPE_ANY ), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW );
-	bSizer11->Add( m_bpButton6, 0, wxTOP|wxBOTTOM|wxRIGHT|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	bSizer8->Add( bSizer11, 0, wxEXPAND, 5 );
 	
@@ -81,13 +78,13 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	this->Layout();
 	
 	// Connect Events
-	m_bpButton6->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindowBase::OnSearchButtonClick ), NULL, this );
+	m_query->Connect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( MainWindowBase::OnQueryEnter ), NULL, this );
 }
 
 MainWindowBase::~MainWindowBase()
 {
 	// Disconnect Events
-	m_bpButton6->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( MainWindowBase::OnSearchButtonClick ), NULL, this );
+	m_query->Disconnect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( MainWindowBase::OnQueryEnter ), NULL, this );
 }
 
 MyPanel1::MyPanel1( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
