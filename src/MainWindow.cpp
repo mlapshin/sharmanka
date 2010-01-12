@@ -36,6 +36,7 @@ void MainWindow::TerminateCurrentSearch()
 void MainWindow::OnSearchButtonClick( wxCommandEvent& event )
 {
   TerminateCurrentSearch();
+
   m_trackSearchThread = new TrackSearchThread(this);
   m_trackSearchThread->Run();
 }
