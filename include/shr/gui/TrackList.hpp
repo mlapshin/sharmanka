@@ -17,7 +17,6 @@ class TrackList : public wxHtmlListBox
   void SetTracks(const TrackVector& newTracks);
   void OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) const;
 
-
  protected:
   virtual wxString OnGetItem(size_t n) const;
   TrackVector m_tracks;

@@ -18,6 +18,8 @@ MainWindow::MainWindow()
 
   Connect(TSE_COMPLETED, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchCompleted) );
   Connect(TSE_ERROR, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchError) );
+
+  SetQueryPlaceholder();
 }
 
 MainWindow::~MainWindow()
@@ -44,10 +46,40 @@ void MainWindow::OnQueryEnter( wxCommandEvent& event )
   }
 }
 
+void MainWindow::OnQueryFocus( wxFocusEvent& event )
+{
+  RemoveQueryPlaceholder();
+}
+
+void MainWindow::OnQueryUnfocus( wxFocusEvent& event )
+{
+  if (m_query->GetValue().Trim().Length() == 0) {
+    SetQueryPlaceholder();
+  }
+}
+
 void MainWindow::OnTrackSearchError( wxCommandEvent& event )
 {
   wxMessageBox(_T("HTTP Error"));
 }
+
+void MainWindow::SetQueryPlaceholder()
+{
+  m_query->SetValue(_T("Введите название песни или исполнителя и нажмите \"Enter\""));
+  m_query->SetForegroundColour(*wxLIGHT_GREY);
+  m_queryPlaceholder = true;
+}
+
+void MainWindow::RemoveQueryPlaceholder()
+{
+  if (m_queryPlaceholder)
+  {
+    m_queryPlaceholder = false;
+    m_query->SetValue(_T(""));
+    m_query->SetForegroundColour(wxNullColour);
+  }
+}
+
 
 void MainWindow::OnTrackSearchCompleted( wxCommandEvent& event )
 {

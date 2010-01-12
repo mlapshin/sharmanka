@@ -53,6 +53,8 @@ namespace shr
 				shr::gui::TrackList* m_trackList;
 				
 				// Virtual event handlers, overide them in your derived class
+				virtual void OnQueryUnfocus( wxFocusEvent& event ){ event.Skip(); }
+				virtual void OnQueryFocus( wxFocusEvent& event ){ event.Skip(); }
 				virtual void OnQueryEnter( wxCommandEvent& event ){ event.Skip(); }
 				
 			

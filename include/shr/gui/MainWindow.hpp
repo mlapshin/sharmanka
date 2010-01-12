@@ -18,12 +18,18 @@ class MainWindow: public MainWindowBase
   ~MainWindow();
 
   void OnQueryEnter( wxCommandEvent& event );
+  void OnQueryFocus( wxFocusEvent& event );
+  void OnQueryUnfocus( wxFocusEvent& event );
 
   void OnTrackSearchError( wxCommandEvent& event );
   void OnTrackSearchCompleted( wxCommandEvent& event );
 
  private:
   TrackSearchThread* m_trackSearchThread;
+
+  bool m_queryPlaceholder;
+  void SetQueryPlaceholder();
+  void RemoveQueryPlaceholder();
 
   void TerminateCurrentSearch();
 };

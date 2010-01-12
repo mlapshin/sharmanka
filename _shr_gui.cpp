@@ -78,12 +78,16 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	this->Layout();
 	
 	// Connect Events
+	m_query->Connect( wxEVT_KILL_FOCUS, wxFocusEventHandler( MainWindowBase::OnQueryUnfocus ), NULL, this );
+	m_query->Connect( wxEVT_SET_FOCUS, wxFocusEventHandler( MainWindowBase::OnQueryFocus ), NULL, this );
 	m_query->Connect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( MainWindowBase::OnQueryEnter ), NULL, this );
 }
 
 MainWindowBase::~MainWindowBase()
 {
 	// Disconnect Events
+	m_query->Disconnect( wxEVT_KILL_FOCUS, wxFocusEventHandler( MainWindowBase::OnQueryUnfocus ), NULL, this );
+	m_query->Disconnect( wxEVT_SET_FOCUS, wxFocusEventHandler( MainWindowBase::OnQueryFocus ), NULL, this );
 	m_query->Disconnect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( MainWindowBase::OnQueryEnter ), NULL, this );
 }
 
