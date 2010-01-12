@@ -48,7 +48,9 @@ void MainWindow::OnQueryEnter( wxCommandEvent& event )
 
 void MainWindow::OnQueryFocus( wxFocusEvent& event )
 {
-  RemoveQueryPlaceholder();
+  if (m_queryPlaceholder) {
+    RemoveQueryPlaceholder();
+  }
 }
 
 void MainWindow::OnQueryUnfocus( wxFocusEvent& event )
