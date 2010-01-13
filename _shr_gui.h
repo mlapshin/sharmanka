@@ -11,19 +11,21 @@
 namespace shr{ namespace gui{ class TrackList; } }
 
 #include <wx/string.h>
-#include <wx/bitmap.h>
-#include <wx/image.h>
-#include <wx/icon.h>
+#include <wx/textctrl.h>
 #include <wx/gdicmn.h>
-#include <wx/toolbar.h>
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
 #include <wx/sizer.h>
-#include <wx/html/htmlwin.h>
 #include <wx/stattext.h>
 #include <wx/slider.h>
-#include <wx/textctrl.h>
+#include <wx/bitmap.h>
+#include <wx/image.h>
+#include <wx/icon.h>
+#include <wx/bmpbuttn.h>
+#include <wx/button.h>
+#include <wx/statline.h>
+#include <wx/statbmp.h>
 #include <wx/gauge.h>
 #include <wx/listctrl.h>
 #include <wx/frame.h>
@@ -42,12 +44,20 @@ namespace shr
 			private:
 			
 			protected:
-				wxToolBar* m_toolBar2;
-				wxToolBar* m_toolBar5;
-				
-				wxHtmlWindow* m_songTitle;
-				wxStaticText* m_staticText6;
+				wxTextCtrl* m_textCtrl3;
+				wxTextCtrl* m_textCtrl4;
+				wxStaticText* m_currentPos;
+				wxStaticText* m_totalDuration;
 				wxSlider* m_slider2;
+				wxBitmapButton* m_bpButton2;
+				wxBitmapButton* m_bpButton3;
+				wxBitmapButton* m_bpButton4;
+				wxStaticLine* m_staticline1;
+				wxBitmapButton* m_bpButton5;
+				
+				wxStaticBitmap* m_bitmap1;
+				wxSlider* m_volumeSlider;
+				wxStaticBitmap* m_bitmap2;
 				
 				wxBoxSizer* m_searchSizer;
 				wxTextCtrl* m_query;
