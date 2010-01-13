@@ -23,7 +23,6 @@ bool Application::OnInit()
   SetTopWindow(m_main_window);
   m_main_window->Show(true);
 
-
   m_sid = argv[1];
 
   return true;
@@ -31,8 +30,8 @@ bool Application::OnInit()
 
 void Application::Exit()
 {
+  m_main_window->Close(true);
   delete m_tray_icon;
-  m_main_window->Destroy();
 }
 
 int Application::OnExit()

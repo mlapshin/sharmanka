@@ -25,6 +25,8 @@ class MainWindow: public MainWindowBase
   void OnTrackSearchPulse( wxCommandEvent& event );
   void OnTrackSearchCompleted( wxCommandEvent& event );
 
+  void OnClose(wxCloseEvent& e);
+
  private:
   TrackSearchThread* m_trackSearchThread;
 
@@ -35,6 +37,8 @@ class MainWindow: public MainWindowBase
   void TerminateCurrentSearch();
 
   void ShowSearchGauge(bool show);
+
+  DECLARE_EVENT_TABLE()
 };
 
 }

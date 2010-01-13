@@ -9,6 +9,11 @@ namespace shr
 namespace gui
 {
 
+BEGIN_EVENT_TABLE(MainWindow, MainWindowBase)
+  EVT_CLOSE(MainWindow::OnClose)
+END_EVENT_TABLE()
+
+
 MainWindow::MainWindow()
   : MainWindowBase(NULL)
 {
@@ -106,6 +111,16 @@ void MainWindow::ShowSearchGauge(bool show)
 {
   m_searchSizer->Show(m_searchGauge, show);
   m_searchSizer->Layout();
+}
+
+void MainWindow::OnClose(wxCloseEvent& e)
+{
+  if (e.CanVeto()) {
+    Show(false);
+  } else {
+    TerminateCurrentSearch();
+    Destroy();
+  }
 }
 
 }}
