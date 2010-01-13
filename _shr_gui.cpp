@@ -102,6 +102,8 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	m_searchSizer->Add( m_query, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
 	m_searchGauge = new wxGauge( this, wxID_ANY, 100, wxDefaultPosition, wxSize( 70,25 ), wxGA_HORIZONTAL|wxGA_SMOOTH );
+	m_searchGauge->Hide();
+	
 	m_searchSizer->Add( m_searchGauge, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
 	m_tracksCount = new wxStaticText( this, wxID_ANY, wxT("0 / 0"), wxDefaultPosition, wxSize( -1,-1 ), 0 );

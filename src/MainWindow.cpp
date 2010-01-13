@@ -94,7 +94,7 @@ void MainWindow::OnTrackSearchError( wxCommandEvent& event )
 void MainWindow::SetQueryPlaceholder()
 {
   m_query->SetValue(_T("Введите название песни или исполнителя и нажмите \"Enter\""));
-  m_query->SetForegroundColour(*wxLIGHT_GREY);
+  m_query->SetForegroundColour(wxColour(_T("#aaaaaa")));
   m_queryPlaceholder = true;
 }
 

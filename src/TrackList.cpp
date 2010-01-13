@@ -76,7 +76,7 @@ wxString TrackList::OnGetItem(size_t n) const
 
   } else if (m_tracks.size() == 0) {
     // Sorry nothing found message
-    ret = _T("<br><center><font color=#aaa size=+2><b>Либо Вы еще ничего не искали, либо по Вашему запросу ничего не найдено</b></font></center>");
+    ret = _T("<br><center><font color=#aaa size=+1><b>Либо Вы еще ничего не искали, либо по Вашему запросу ничего не найдено</b></font></center>");
   } else if (m_tracks.size() == n) {
     // MOAR link
     ret = _T("<center><a href=\"#\"><b>Еще музыки!</b></a></center>");
