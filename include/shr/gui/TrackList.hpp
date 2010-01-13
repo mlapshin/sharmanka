@@ -14,8 +14,8 @@ class TrackList : public wxHtmlListBox
   TrackList(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& s = wxDefaultSize, long unused_arg = 0); // TODO: remove unused style arg
   ~TrackList();
 
-  void SetTracks(const TrackVector& newTracks);
-  void AppendTracks(const TrackVector& newTracks);
+  void SetTracks(const TrackVector& newTracks, bool moar = true);
+  void AppendTracks(const TrackVector& newTracks, bool moar = true);
 
   void OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) const;
 
@@ -30,10 +30,11 @@ class TrackList : public wxHtmlListBox
   void OnRightMouseDown(wxMouseEvent& event);
   void OnLeftMouseDClick(wxMouseEvent& event);
   void OnMenuCopyTrackUrl(wxCommandEvent& event);
-  void UpdateMe();
 
   virtual wxString OnGetItem(size_t n) const;
+
   TrackVector m_tracks;
+  bool m_moarLink;
 
   DECLARE_EVENT_TABLE()
 };

@@ -99,12 +99,10 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	m_searchSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_query = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );
-	m_searchSizer->Add( m_query, 1, wxALL, 5 );
+	m_searchSizer->Add( m_query, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
 	
-	m_searchGauge = new wxGauge( this, wxID_ANY, 100, wxDefaultPosition, wxSize( 70,-1 ), wxGA_HORIZONTAL|wxGA_SMOOTH );
-	m_searchGauge->Hide();
-	
-	m_searchSizer->Add( m_searchGauge, 0, wxALL, 5 );
+	m_searchGauge = new wxGauge( this, wxID_ANY, 100, wxDefaultPosition, wxSize( 70,25 ), wxGA_HORIZONTAL|wxGA_SMOOTH );
+	m_searchSizer->Add( m_searchGauge, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
 	m_tracksCount = new wxStaticText( this, wxID_ANY, wxT("0 / 0"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
 	m_tracksCount->Wrap( -1 );

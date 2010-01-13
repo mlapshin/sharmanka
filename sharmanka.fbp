@@ -881,7 +881,7 @@
                         <property name="permission">protected</property>
                         <object class="sizeritem" expanded="1">
                             <property name="border">5</property>
-                            <property name="flag">wxALL</property>
+                            <property name="flag">wxALL|wxALIGN_CENTER_VERTICAL</property>
                             <property name="proportion">1</property>
                             <object class="wxTextCtrl" expanded="1">
                                 <property name="bg"></property>
@@ -936,7 +936,7 @@
                         </object>
                         <object class="sizeritem" expanded="1">
                             <property name="border">5</property>
-                            <property name="flag">wxALL</property>
+                            <property name="flag">wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT</property>
                             <property name="proportion">0</property>
                             <object class="wxGauge" expanded="1">
                                 <property name="bg"></property>
@@ -944,7 +944,7 @@
                                 <property name="enabled">1</property>
                                 <property name="fg"></property>
                                 <property name="font"></property>
-                                <property name="hidden">1</property>
+                                <property name="hidden">0</property>
                                 <property name="id">wxID_ANY</property>
                                 <property name="maximum_size"></property>
                                 <property name="minimum_size"></property>
@@ -952,7 +952,7 @@
                                 <property name="permission">protected</property>
                                 <property name="pos"></property>
                                 <property name="range">100</property>
-                                <property name="size">70,-1</property>
+                                <property name="size">70,25</property>
                                 <property name="style">wxGA_HORIZONTAL|wxGA_SMOOTH</property>
                                 <property name="subclass"></property>
                                 <property name="tooltip"></property>

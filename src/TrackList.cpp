@@ -17,7 +17,7 @@ BEGIN_EVENT_TABLE(TrackList, wxHtmlListBox)
 END_EVENT_TABLE()
 
 TrackList::TrackList(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& s, long style)
-    : wxHtmlListBox(parent, id, pos, s, wxSUNKEN_BORDER)
+    : wxHtmlListBox(parent, id, pos, s, wxSUNKEN_BORDER), m_moarLink(false)
 {
   SetMargins(3, 3);
   SetTracks(m_tracks);
@@ -30,7 +30,7 @@ TrackList::~TrackList()
 
 void TrackList::OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) const
 {
-  const bool isMoarBtn = (n == m_tracks.size());
+  const bool isMoarBtn = (m_moarLink && n == m_tracks.size());
   const bool isSelected = (IsSelected(n) && !isMoarBtn),
       isCurrent = (IsCurrent(n) && !isMoarBtn),
       isOdd = (n % 2 != 0);
@@ -42,32 +42,23 @@ void TrackList::OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) const
   }
 }
 
-void TrackList::UpdateMe()
+void TrackList::SetTracks(const TrackVector& newTracks, bool moar)
 {
-  if (m_tracks.size() == 0) {
-    SetItemCount(1);
-    Disable();
-  } else {
-    SetItemCount(m_tracks.size() + 1);
-    Enable();
-  }
-
-  RefreshAll();
+  m_tracks.clear();
+  AppendTracks(newTracks, moar);
 }
 
-void TrackList::SetTracks(const TrackVector& newTracks)
-{
-  m_tracks = newTracks;
-  UpdateMe();
-}
-
-void TrackList::AppendTracks(const TrackVector& newTracks)
+void TrackList::AppendTracks(const TrackVector& newTracks, bool moar)
 {
   size_t oldCount = m_tracks.size();
+  size_t oldScrollPos = GetFirstVisibleLine();
+
+  m_moarLink = moar;
   m_tracks.insert(m_tracks.begin() + m_tracks.size(), newTracks.begin(), newTracks.end());
-  SetItemCount(m_tracks.size() + 1);
-  ScrollToLine(oldCount);
-  RefreshLines(oldCount, m_tracks.size() + 1);
+
+  SetItemCount(m_tracks.size() + (moar ? 1 : 0));
+  ScrollToLine(oldScrollPos + 1);
+  RefreshLines(oldCount, m_tracks.size() + (moar ? 1 : 0));
 }
 
 wxString TrackList::OnGetItem(size_t n) const
@@ -84,8 +75,10 @@ wxString TrackList::OnGetItem(size_t n) const
         _T("&nbsp;</font></td></tr></table>");
 
   } else if (m_tracks.size() == 0) {
+    // Sorry nothing found message
     ret = _T("<br><center><font color=#aaa size=+2><b>Либо Вы еще ничего не искали, либо по Вашему запросу ничего не найдено</b></font></center>");
   } else if (m_tracks.size() == n) {
+    // MOAR link
     ret = _T("<center><a href=\"#\"><b>Еще музыки!</b></a></center>");
   }
 
@@ -129,11 +122,8 @@ void TrackList::OnLeftMouseDown(wxMouseEvent& event)
   int item = HitTest(event.GetPosition());
 
   if (item != wxNOT_FOUND && item == m_tracks.size()) {
-    // MOAR link clicked here
-    // TODO: refactor this shit
-    MainWindow* mw = reinterpret_cast<MainWindow*>(this->GetParent());
-    mw->QueryMoreTracks();
-    event.StopPropagation();
+    wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, TLE_MOAR_TRACKS );
+    GetEventHandler()->ProcessEvent( event );
   } else {
     event.Skip();
   }

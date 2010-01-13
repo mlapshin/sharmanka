@@ -7,13 +7,6 @@
 namespace shr
 {
 
-// Trach Search Events
-enum {
-  TSE_COMPLETED,
-  TSE_ERROR,
-  TSE_PULSE
-};
-
 class TrackSearchThread : public wxThread
 {
  public:
@@ -37,6 +30,11 @@ class TrackSearchThread : public wxThread
   const wxString& GetQuery() const
   {
     return m_query;
+  }
+
+  inline bool HasMoreTracks() const
+  {
+    return (m_totalTracks > (m_offset + m_tracks.size()));
   }
 
  private:

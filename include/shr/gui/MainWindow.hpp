@@ -26,6 +26,8 @@ class MainWindow: public MainWindowBase
   void OnTrackSearchPulse( wxCommandEvent& event );
   void OnTrackSearchCompleted( wxCommandEvent& event );
 
+  void OnMoarTracksRequested( wxCommandEvent& event );
+
   void OnClose(wxCloseEvent& e);
 
   void QueryMoreTracks();

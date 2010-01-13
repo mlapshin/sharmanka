@@ -21,6 +21,8 @@ MainWindow::MainWindow()
   Connect(TSE_ERROR, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchError) );
   Connect(TSE_PULSE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchPulse) );
 
+  Connect(TLE_MOAR_TRACKS, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnMoarTracksRequested) );
+
   SetQueryPlaceholder();
 }
 
@@ -62,6 +64,11 @@ void MainWindow::QueryMoreTracks()
                                                        m_trackSearchThread->GetOffset() + 100);
 
   RunQuery(newSearch);
+}
+
+void MainWindow::OnMoarTracksRequested(wxCommandEvent& e)
+{
+  QueryMoreTracks();
 }
 
 void MainWindow::OnQueryFocus( wxFocusEvent& event )
@@ -106,9 +113,9 @@ void MainWindow::OnTrackSearchCompleted( wxCommandEvent& event )
   wxString counter;
 
   if (m_trackSearchThread->GetOffset() > 0) {
-    m_trackList->AppendTracks(m_trackSearchThread->GetTracks());
+    m_trackList->AppendTracks(m_trackSearchThread->GetTracks(), m_trackSearchThread->HasMoreTracks());
   } else {
-    m_trackList->SetTracks(m_trackSearchThread->GetTracks());
+    m_trackList->SetTracks(m_trackSearchThread->GetTracks(), m_trackSearchThread->HasMoreTracks());
   }
 
   counter.Printf(_T("%d / %d"), m_trackList->GetTracks().size(), m_trackSearchThread->GetTotalTracksCount());
