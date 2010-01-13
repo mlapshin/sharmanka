@@ -24,11 +24,17 @@ class TrackSearchThread : public wxThread
     return m_tracks;
   }
 
+  inline long GetTotalTracksCount() const
+  {
+    return m_totalTracks;
+  }
+
  private:
   TrackVector m_tracks;
   wxEvtHandler* m_eventReceiver;
   wxString m_query;
   int m_offset;
+  long m_totalTracks;
 
   virtual void* Entry();
   void Pulse(int prgrs = 0);

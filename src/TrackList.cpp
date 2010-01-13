@@ -56,9 +56,7 @@ wxString TrackList::OnGetItem(size_t n) const
     ret = _T("<table width=100% cellpadding=0 cellspacing=0><tr><td><B>") +
         m_tracks[n].GetArtist() + _T("</B> &mdash; ") + m_tracks[n].GetTitle() +
         _T("</td><td align=right valign=top><font color=#666>") + d +
-        _T("&nbsp;</font></td></tr><tr><td colspan=2><font color=#666 size=-2>") +
-        m_tracks[n].GetFileURL() +
-        _T("</font></td></tr></table>");
+        _T("&nbsp;</font></td></tr></table>");
 
   } else {
     ret = _T("<br><center><font color=#aaa size=+2><b>Либо Вы еще ничего не искали, либо по Вашему запросу ничего не найдено</b></font></center>");

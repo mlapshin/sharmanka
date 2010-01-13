@@ -17,12 +17,12 @@ TrackSearchThread::TrackSearchThread(wxEvtHandler* eventHandler, const wxString&
     : wxThread(wxTHREAD_JOINABLE), m_query(q), m_offset(offset)
 {
   m_eventReceiver = eventHandler;
+  m_totalTracks = 0;
   Create();
 }
 
 wxString TrackSearchThread::GetPage(const wxString& path)
 {
-  std::cout << path.mb_str() << std::endl;
   wxString result;
   wxHTTP http;
   http.SetFlags(wxSOCKET_BLOCK);
@@ -67,7 +67,6 @@ Track TrackSearchThread::GetTrackFromAudioRow(const wxString& ar)
   wxString title;
   int duration = 0;
 
-
   if (op.Matches(ar)) {
     op.GetMatch(&start, &len, 1);
 
@@ -103,6 +102,8 @@ Track TrackSearchThread::GetTrackFromAudioRow(const wxString& ar)
 void* TrackSearchThread::Entry()
 {
   wxString page = GetPage(_T("/gsearch.php?section=audio&q=") + URLEncode(wxString::From8BitData(m_query.mb_str(wxCSConv(wxT("windows-1251"))))));
+  static wxRegEx totalTracksRe(_T("<div id=\"audio\" class=\"sec_row\"><div class=\"sec_pad_sel\"><span>\\D+ \\((\\d+)\\)"), wxRE_ADVANCED);
+
   size_t i = 0;
   size_t j = 0;
 
@@ -116,7 +117,14 @@ void* TrackSearchThread::Entry()
     }
   }
 
-  std::cout << m_tracks.size() << " tracks found" << std::endl;
+  if (totalTracksRe.Matches(page)) {
+    size_t a = 0;
+    size_t b = 0;
+    totalTracksRe.GetMatch(&a, &b, 1);
+    page.Mid(a, b).ToLong(&m_totalTracks);
+  }
+
+  std::cout << m_tracks.size() << " / " << m_totalTracks << " tracks found" << std::endl;
 
   if(page.Length() > 0) {
     wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, TSE_COMPLETED );

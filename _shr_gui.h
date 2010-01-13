@@ -16,8 +16,8 @@ namespace shr{ namespace gui{ class TrackList; } }
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
-#include <wx/sizer.h>
 #include <wx/stattext.h>
+#include <wx/sizer.h>
 #include <wx/slider.h>
 #include <wx/bitmap.h>
 #include <wx/image.h>
@@ -62,6 +62,7 @@ namespace shr
 				wxBoxSizer* m_searchSizer;
 				wxTextCtrl* m_query;
 				wxGauge* m_searchGauge;
+				wxStaticText* m_tracksCount;
 				shr::gui::TrackList* m_trackList;
 				
 				// Virtual event handlers, overide them in your derived class

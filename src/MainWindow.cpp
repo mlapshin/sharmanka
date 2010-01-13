@@ -87,11 +87,14 @@ void MainWindow::RemoveQueryPlaceholder()
   }
 }
 
-
 void MainWindow::OnTrackSearchCompleted( wxCommandEvent& event )
 {
+  wxString counter;
+  counter.Printf(_T("%d / %d"), m_trackSearchThread->GetTracks().size(), m_trackSearchThread->GetTotalTracksCount());
+
   m_trackList->SetTracks(m_trackSearchThread->GetTracks());
-  m_searchGauge->Show(false);
+  m_tracksCount->SetLabel(counter);
+  ShowSearchGauge(false);
 }
 
 void MainWindow::OnTrackSearchPulse( wxCommandEvent& event )
@@ -105,7 +108,14 @@ void MainWindow::OnTrackSearchPulse( wxCommandEvent& event )
 
 void MainWindow::ShowSearchGauge(bool show)
 {
-  m_searchSizer->Show(m_searchGauge, show);
+  if (show) {
+    m_searchSizer->Show(m_searchGauge, true);
+    m_searchSizer->Show(m_tracksCount, false);
+  } else {
+    m_searchSizer->Show(m_searchGauge, false);
+    m_searchSizer->Show(m_tracksCount, true);
+  }
+
   m_searchSizer->Layout();
 }
 

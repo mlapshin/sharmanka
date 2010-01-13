@@ -31,30 +31,30 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	
 	bSizer7->Add( m_textCtrl3, 1, wxEXPAND, 5 );
 	
+	wxBoxSizer* bSizer8;
+	bSizer8 = new wxBoxSizer( wxHORIZONTAL );
+	
 	m_textCtrl4 = new wxTextCtrl( this, wxID_ANY, wxT("Гражданская Оборона"), wxDefaultPosition, wxDefaultSize, wxTE_READONLY|wxNO_BORDER );
 	m_textCtrl4->SetFont( wxFont( 10, 74, 93, 90, false, wxT("Sans") ) );
 	m_textCtrl4->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWFRAME ) );
 	
-	bSizer7->Add( m_textCtrl4, 1, wxEXPAND, 5 );
-	
-	bSizer10->Add( bSizer7, 1, wxEXPAND, 5 );
-	
-	wxBoxSizer* bSizer8;
-	bSizer8 = new wxBoxSizer( wxHORIZONTAL );
+	bSizer8->Add( m_textCtrl4, 1, wxEXPAND, 5 );
 	
 	m_currentPos = new wxStaticText( this, wxID_ANY, wxT("0:40"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_currentPos->Wrap( -1 );
 	m_currentPos->SetFont( wxFont( 8, 74, 90, 90, false, wxT("Sans") ) );
 	
-	bSizer8->Add( m_currentPos, 0, wxALIGN_BOTTOM|wxALIGN_RIGHT, 5 );
+	bSizer8->Add( m_currentPos, 0, wxALIGN_RIGHT|wxALIGN_BOTTOM, 5 );
 	
 	m_totalDuration = new wxStaticText( this, wxID_ANY, wxT(" / 3:34"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_totalDuration->Wrap( -1 );
 	m_totalDuration->SetFont( wxFont( 8, 74, 90, 90, false, wxT("Sans") ) );
 	
-	bSizer8->Add( m_totalDuration, 0, wxALIGN_RIGHT, 5 );
+	bSizer8->Add( m_totalDuration, 0, wxALIGN_RIGHT|wxALIGN_BOTTOM, 5 );
 	
-	bSizer10->Add( bSizer8, 0, wxALIGN_BOTTOM, 5 );
+	bSizer7->Add( bSizer8, 1, wxALIGN_BOTTOM|wxEXPAND, 5 );
+	
+	bSizer10->Add( bSizer7, 1, wxEXPAND, 5 );
 	
 	bSizer->Add( bSizer10, 0, wxEXPAND|wxTOP|wxRIGHT|wxLEFT, 5 );
 	
@@ -105,6 +105,13 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	m_searchGauge->Hide();
 	
 	m_searchSizer->Add( m_searchGauge, 0, wxALL, 5 );
+	
+	m_tracksCount = new wxStaticText( this, wxID_ANY, wxT("100 / 32321"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_tracksCount->Wrap( -1 );
+	m_tracksCount->SetFont( wxFont( 8, 74, 90, 90, false, wxT("Sans") ) );
+	m_tracksCount->Hide();
+	
+	m_searchSizer->Add( m_tracksCount, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
 	bSizer->Add( m_searchSizer, 0, wxEXPAND, 5 );
 	
