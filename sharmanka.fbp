@@ -987,7 +987,7 @@
                         </object>
                         <object class="sizeritem" expanded="1">
                             <property name="border">5</property>
-                            <property name="flag">wxALIGN_CENTER_VERTICAL|wxALL</property>
+                            <property name="flag">wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT</property>
                             <property name="proportion">0</property>
                             <object class="wxStaticText" expanded="1">
                                 <property name="bg"></property>
@@ -997,7 +997,7 @@
                                 <property name="font">Sans,90,90,8,74,0</property>
                                 <property name="hidden">1</property>
                                 <property name="id">wxID_ANY</property>
-                                <property name="label">100 / 32321</property>
+                                <property name="label">0 / 0</property>
                                 <property name="maximum_size"></property>
                                 <property name="minimum_size"></property>
                                 <property name="name">m_tracksCount</property>

@@ -29,11 +29,21 @@ class TrackSearchThread : public wxThread
     return m_totalTracks;
   }
 
+  inline long GetOffset() const
+  {
+    return m_offset;
+  }
+
+  const wxString& GetQuery() const
+  {
+    return m_query;
+  }
+
  private:
   TrackVector m_tracks;
   wxEvtHandler* m_eventReceiver;
   wxString m_query;
-  int m_offset;
+  long m_offset;
   long m_totalTracks;
 
   virtual void* Entry();

@@ -106,12 +106,12 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	
 	m_searchSizer->Add( m_searchGauge, 0, wxALL, 5 );
 	
-	m_tracksCount = new wxStaticText( this, wxID_ANY, wxT("100 / 32321"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
+	m_tracksCount = new wxStaticText( this, wxID_ANY, wxT("0 / 0"), wxDefaultPosition, wxSize( -1,-1 ), 0 );
 	m_tracksCount->Wrap( -1 );
 	m_tracksCount->SetFont( wxFont( 8, 74, 90, 90, false, wxT("Sans") ) );
 	m_tracksCount->Hide();
 	
-	m_searchSizer->Add( m_tracksCount, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+	m_searchSizer->Add( m_tracksCount, 0, wxALIGN_CENTER_VERTICAL|wxTOP|wxBOTTOM|wxRIGHT, 5 );
 	
 	bSizer->Add( m_searchSizer, 0, wxEXPAND, 5 );
 	

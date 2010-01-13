@@ -2,6 +2,7 @@
 #define _MAINWINDOW_H_
 
 #include "_shr_gui.h"
+#include "wx/html/htmlwin.h"
 
 namespace shr
 {
@@ -27,16 +28,17 @@ class MainWindow: public MainWindowBase
 
   void OnClose(wxCloseEvent& e);
 
+  void QueryMoreTracks();
+
  private:
   TrackSearchThread* m_trackSearchThread;
-
   bool m_queryPlaceholder;
+
   void SetQueryPlaceholder();
   void RemoveQueryPlaceholder();
-
   void TerminateCurrentSearch();
-
   void ShowSearchGauge(bool show);
+  void RunQuery(TrackSearchThread* q);
 
   DECLARE_EVENT_TABLE()
 };

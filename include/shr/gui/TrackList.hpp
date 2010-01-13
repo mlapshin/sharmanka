@@ -15,11 +15,27 @@ class TrackList : public wxHtmlListBox
   ~TrackList();
 
   void SetTracks(const TrackVector& newTracks);
+  void AppendTracks(const TrackVector& newTracks);
+
   void OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) const;
 
+  inline const TrackVector& GetTracks() const
+  {
+    return m_tracks;
+  }
+
  protected:
+
+  void OnLeftMouseDown( wxMouseEvent& event );
+  void OnRightMouseDown(wxMouseEvent& event);
+  void OnLeftMouseDClick(wxMouseEvent& event);
+  void OnMenuCopyTrackUrl(wxCommandEvent& event);
+  void UpdateMe();
+
   virtual wxString OnGetItem(size_t n) const;
   TrackVector m_tracks;
+
+  DECLARE_EVENT_TABLE()
 };
 
 }}

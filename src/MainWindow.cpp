@@ -42,12 +42,26 @@ void MainWindow::TerminateCurrentSearch()
 void MainWindow::OnQueryEnter( wxCommandEvent& event )
 {
   if (m_query->GetValue() != _T("")) {
-    TerminateCurrentSearch();
-
-    m_trackSearchThread = new TrackSearchThread(this, m_query->GetValue(), 0);
-    m_trackSearchThread->Run();
-    ShowSearchGauge(true);
+    RunQuery(new TrackSearchThread(this, m_query->GetValue(), 0));
   }
+}
+
+void MainWindow::RunQuery(TrackSearchThread* q)
+{
+  TerminateCurrentSearch();
+
+  m_trackSearchThread = q;
+  m_trackSearchThread->Run();
+  ShowSearchGauge(true);
+}
+
+void MainWindow::QueryMoreTracks()
+{
+  TrackSearchThread* newSearch = new TrackSearchThread(this,
+                                                       m_trackSearchThread->GetQuery(),
+                                                       m_trackSearchThread->GetOffset() + 100);
+
+  RunQuery(newSearch);
 }
 
 void MainWindow::OnQueryFocus( wxFocusEvent& event )
@@ -90,9 +104,14 @@ void MainWindow::RemoveQueryPlaceholder()
 void MainWindow::OnTrackSearchCompleted( wxCommandEvent& event )
 {
   wxString counter;
-  counter.Printf(_T("%d / %d"), m_trackSearchThread->GetTracks().size(), m_trackSearchThread->GetTotalTracksCount());
 
-  m_trackList->SetTracks(m_trackSearchThread->GetTracks());
+  if (m_trackSearchThread->GetOffset() > 0) {
+    m_trackList->AppendTracks(m_trackSearchThread->GetTracks());
+  } else {
+    m_trackList->SetTracks(m_trackSearchThread->GetTracks());
+  }
+
+  counter.Printf(_T("%d / %d"), m_trackList->GetTracks().size(), m_trackSearchThread->GetTotalTracksCount());
   m_tracksCount->SetLabel(counter);
   ShowSearchGauge(false);
 }

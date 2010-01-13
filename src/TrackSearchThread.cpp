@@ -101,7 +101,8 @@ Track TrackSearchThread::GetTrackFromAudioRow(const wxString& ar)
 
 void* TrackSearchThread::Entry()
 {
-  wxString page = GetPage(_T("/gsearch.php?section=audio&q=") + URLEncode(wxString::From8BitData(m_query.mb_str(wxCSConv(wxT("windows-1251"))))));
+  wxString encodedQuery = URLEncode(wxString::From8BitData(m_query.mb_str(wxCSConv(wxT("windows-1251")))));
+  wxString page = GetPage(_T("/gsearch.php?section=audio&q=") + encodedQuery + _T("&offset=") + wxString::Format(_T("%d"), m_offset));
   static wxRegEx totalTracksRe(_T("<div id=\"audio\" class=\"sec_row\"><div class=\"sec_pad_sel\"><span>\\D+ \\((\\d+)\\)"), wxRE_ADVANCED);
 
   size_t i = 0;
@@ -125,6 +126,10 @@ void* TrackSearchThread::Entry()
   }
 
   std::cout << m_tracks.size() << " / " << m_totalTracks << " tracks found" << std::endl;
+
+  if(m_tracks.size() == 0) {
+    std::cout << page.mb_str() << std::endl;
+  }
 
   if(page.Length() > 0) {
     wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, TSE_COMPLETED );
