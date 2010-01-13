@@ -17,9 +17,9 @@ bool Application::OnInit()
   wxXmlResource::Get()->InitAllHandlers();
   InitXmlResource();
 
-  m_tray_icon = new gui::TrayIcon();
-
   m_main_window = new gui::MainWindow;
+  m_tray_icon = new gui::TrayIcon(m_main_window);
+
   SetTopWindow(m_main_window);
   m_main_window->Show(true);
 
@@ -27,6 +27,16 @@ bool Application::OnInit()
   m_sid = argv[1];
 
   return true;
+}
+
+void Application::Exit()
+{
+  delete m_tray_icon;
+  m_main_window->Destroy();
+}
+
+int Application::OnExit()
+{
 }
 
 }

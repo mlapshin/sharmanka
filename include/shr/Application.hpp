@@ -16,9 +16,12 @@ class Application : public wxApp
     return m_sid;
   }
 
+  void Exit();
+
  private:
 
   virtual bool OnInit();
+  virtual int OnExit();
 
   gui::MainWindow* m_main_window;
   gui::TrayIcon* m_tray_icon;

@@ -8,13 +8,23 @@ namespace shr
 namespace gui
 {
 
+class MainWindow;
+
+enum {
+  TI_EXIT
+};
+
 class TrayIcon : public wxTaskBarIcon
 {
  public:
-  TrayIcon();
+  TrayIcon(MainWindow* mw);
 
  protected:
+  MainWindow* m_mainWindow;
   virtual wxMenu *CreatePopupMenu();
+
+  void OnLeftClick(wxTaskBarIconEvent& event);
+  void OnMenuExitClick(wxCommandEvent& event);
 
   DECLARE_EVENT_TABLE()
 };
