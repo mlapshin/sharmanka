@@ -24,9 +24,9 @@ namespace shr{ namespace gui{ class TrackList; } }
 #include <wx/stattext.h>
 #include <wx/slider.h>
 #include <wx/textctrl.h>
+#include <wx/gauge.h>
 #include <wx/listctrl.h>
 #include <wx/frame.h>
-#include <wx/panel.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -49,7 +49,9 @@ namespace shr
 				wxStaticText* m_staticText6;
 				wxSlider* m_slider2;
 				
+				wxBoxSizer* m_searchSizer;
 				wxTextCtrl* m_query;
+				wxGauge* m_searchGauge;
 				shr::gui::TrackList* m_trackList;
 				
 				// Virtual event handlers, overide them in your derived class
@@ -61,21 +63,6 @@ namespace shr
 			public:
 				MainWindowBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Шарманка"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 604,564 ), long style = wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL, const wxString& name = wxT("SharmankaMain") );
 				~MainWindowBase();
-			
-		};
-		
-		///////////////////////////////////////////////////////////////////////////////
-		/// Class MyPanel1
-		///////////////////////////////////////////////////////////////////////////////
-		class MyPanel1 : public wxPanel 
-		{
-			private:
-			
-			protected:
-			
-			public:
-				MyPanel1( wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = wxTAB_TRAVERSAL );
-				~MyPanel1();
 			
 		};
 		

@@ -10,7 +10,8 @@ namespace shr
 // Trach Search Events
 enum {
   TSE_COMPLETED,
-  TSE_ERROR
+  TSE_ERROR,
+  TSE_PULSE
 };
 
 class TrackSearchThread : public wxThread
@@ -30,6 +31,7 @@ class TrackSearchThread : public wxThread
   int m_offset;
 
   virtual void* Entry();
+  void Pulse(int prgrs = 0);
   Track GetTrackFromAudioRow(const wxString& ar);
 
   wxString GetPage(const wxString& path);

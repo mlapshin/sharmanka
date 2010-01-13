@@ -43,6 +43,7 @@ wxString TrackSearchThread::GetPage(const wxString& path)
       do {
         bytesRead = httpStream->Read(buf, BUFFER_SIZE).LastRead();
         result += wxString((const char*)buf, wxCSConv(wxT("windows-1251")), bytesRead);
+        Pulse();
       } while (!TestDestroy() && bytesRead > 0);
     } else {
       // Nothing to do here?
@@ -105,12 +106,13 @@ void* TrackSearchThread::Entry()
   size_t i = 0;
   size_t j = 0;
 
-  while ((i = page.find(_T("<div class=\"audioRow"), j)) != wxString::npos) {
+  while (!TestDestroy() && (i = page.find(_T("<div class=\"audioRow"), j)) != wxString::npos) {
     j = page.find(_T("</table>"), i);
 
     if (j != wxString::npos) {
       wxString audioRow = page.Mid(i, j - i);
       m_tracks.push_back(GetTrackFromAudioRow(audioRow));
+      Pulse(m_tracks.size());
     }
   }
 
@@ -125,6 +127,13 @@ void* TrackSearchThread::Entry()
   }
 
   return NULL;
+}
+
+void TrackSearchThread::Pulse(int prgrs)
+{
+  wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, TSE_PULSE );
+  event.SetInt(prgrs);
+  wxPostEvent( m_eventReceiver, event );
 }
 
 }

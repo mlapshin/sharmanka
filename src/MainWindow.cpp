@@ -18,6 +18,7 @@ MainWindow::MainWindow()
 
   Connect(TSE_COMPLETED, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchCompleted) );
   Connect(TSE_ERROR, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchError) );
+  Connect(TSE_PULSE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchPulse) );
 
   SetQueryPlaceholder();
 }
@@ -33,6 +34,7 @@ void MainWindow::TerminateCurrentSearch()
     m_trackSearchThread->Delete(); // wait for thread
     delete m_trackSearchThread;
     m_trackSearchThread = 0;
+    ShowSearchGauge(false);
   }
 }
 
@@ -43,6 +45,7 @@ void MainWindow::OnQueryEnter( wxCommandEvent& event )
 
     m_trackSearchThread = new TrackSearchThread(this, m_query->GetValue(), 0);
     m_trackSearchThread->Run();
+    ShowSearchGauge(true);
   }
 }
 
@@ -63,6 +66,7 @@ void MainWindow::OnQueryUnfocus( wxFocusEvent& event )
 void MainWindow::OnTrackSearchError( wxCommandEvent& event )
 {
   wxMessageBox(_T("HTTP Error"));
+  TerminateCurrentSearch();
 }
 
 void MainWindow::SetQueryPlaceholder()
@@ -86,7 +90,22 @@ void MainWindow::RemoveQueryPlaceholder()
 void MainWindow::OnTrackSearchCompleted( wxCommandEvent& event )
 {
   m_trackList->SetTracks(m_trackSearchThread->GetTracks());
+  m_searchGauge->Show(false);
 }
 
+void MainWindow::OnTrackSearchPulse( wxCommandEvent& event )
+{
+  if(event.GetInt() > 0) {
+    m_searchGauge->SetValue(event.GetInt());
+  } else {
+    m_searchGauge->Pulse();
+  }
+}
+
+void MainWindow::ShowSearchGauge(bool show)
+{
+  m_searchSizer->Show(m_searchGauge, show);
+  m_searchSizer->Layout();
+}
 
 }}

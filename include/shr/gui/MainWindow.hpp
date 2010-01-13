@@ -22,6 +22,7 @@ class MainWindow: public MainWindowBase
   void OnQueryUnfocus( wxFocusEvent& event );
 
   void OnTrackSearchError( wxCommandEvent& event );
+  void OnTrackSearchPulse( wxCommandEvent& event );
   void OnTrackSearchCompleted( wxCommandEvent& event );
 
  private:
@@ -32,6 +33,8 @@ class MainWindow: public MainWindowBase
   void RemoveQueryPlaceholder();
 
   void TerminateCurrentSearch();
+
+  void ShowSearchGauge(bool show);
 };
 
 }

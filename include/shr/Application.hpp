@@ -4,7 +4,7 @@
 namespace shr
 {
 
-namespace gui { class MainWindow; }
+namespace gui { class MainWindow; class TrayIcon; }
 
 class MainWindow;
 
@@ -21,6 +21,7 @@ class Application : public wxApp
   virtual bool OnInit();
 
   gui::MainWindow* m_main_window;
+  gui::TrayIcon* m_tray_icon;
   wxString m_sid;
 };
 

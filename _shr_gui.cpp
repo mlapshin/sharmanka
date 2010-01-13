@@ -63,13 +63,17 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	
 	bSizer8->Add( 0, 10, 0, 0, 5 );
 	
-	wxBoxSizer* bSizer11;
-	bSizer11 = new wxBoxSizer( wxHORIZONTAL );
+	m_searchSizer = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_query = new wxTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );
-	bSizer11->Add( m_query, 1, wxALL|wxALIGN_CENTER_VERTICAL, 5 );
+	m_searchSizer->Add( m_query, 1, wxALL, 5 );
 	
-	bSizer8->Add( bSizer11, 0, wxEXPAND, 5 );
+	m_searchGauge = new wxGauge( this, wxID_ANY, 100, wxDefaultPosition, wxSize( 70,-1 ), wxGA_HORIZONTAL|wxGA_SMOOTH );
+	m_searchGauge->Hide();
+	
+	m_searchSizer->Add( m_searchGauge, 0, wxALL, 5 );
+	
+	bSizer8->Add( m_searchSizer, 0, wxEXPAND, 5 );
 	
 	m_trackList = new shr::gui::TrackList( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_NO_HEADER|wxLC_NO_SORT_HEADER|wxLC_REPORT|wxSUNKEN_BORDER|wxVSCROLL );
 	bSizer8->Add( m_trackList, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
@@ -89,12 +93,4 @@ MainWindowBase::~MainWindowBase()
 	m_query->Disconnect( wxEVT_KILL_FOCUS, wxFocusEventHandler( MainWindowBase::OnQueryUnfocus ), NULL, this );
 	m_query->Disconnect( wxEVT_SET_FOCUS, wxFocusEventHandler( MainWindowBase::OnQueryFocus ), NULL, this );
 	m_query->Disconnect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( MainWindowBase::OnQueryEnter ), NULL, this );
-}
-
-MyPanel1::MyPanel1( wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxPanel( parent, id, pos, size, style )
-{
-}
-
-MyPanel1::~MyPanel1()
-{
 }
