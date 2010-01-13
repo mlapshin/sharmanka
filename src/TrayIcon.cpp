@@ -16,7 +16,7 @@ END_EVENT_TABLE()
 TrayIcon::TrayIcon(MainWindow* mw)
     : m_mainWindow(mw)
 {
-  SetIcon(wxIcon(_T("bitmaps/icons/tray-paused.gif")));
+  SetIcon(wxIcon(_T("bitmaps/icons/tray-idle.gif")));
 }
 
 wxMenu* TrayIcon::CreatePopupMenu()

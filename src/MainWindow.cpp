@@ -45,6 +45,10 @@ void MainWindow::OnQueryEnter( wxCommandEvent& event )
 {
   if (m_query->GetValue() != _T("")) {
     RunQuery(new TrackSearchThread(this, m_query->GetValue(), 0));
+  } else {
+    m_trackList->SetTracks(TrackVector());
+    m_searchSizer->Show(m_tracksCount, false);
+    m_searchSizer->Layout();
   }
 }
 
@@ -87,7 +91,7 @@ void MainWindow::OnQueryUnfocus( wxFocusEvent& event )
 
 void MainWindow::OnTrackSearchError( wxCommandEvent& event )
 {
-  wxMessageBox(_T("HTTP Error"));
+  wxMessageBox(_T("Мда, похоже что-то пошло не так. Скорее всего проблема в Вашем подключении к интернету, но вовсе не обязательно - всякое бывает. В любом случае, постарайтесь сильно не переживать по этому поводу, все обязательно наладится."), _T("HTTP Error"), wxICON_ERROR);
   TerminateCurrentSearch();
 }
 
@@ -100,8 +104,7 @@ void MainWindow::SetQueryPlaceholder()
 
 void MainWindow::RemoveQueryPlaceholder()
 {
-  if (m_queryPlaceholder)
-  {
+  if (m_queryPlaceholder) {
     m_queryPlaceholder = false;
     m_query->SetValue(_T(""));
     m_query->SetForegroundColour(wxNullColour);

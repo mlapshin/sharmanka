@@ -52,9 +52,14 @@ void TrackList::AppendTracks(const TrackVector& newTracks, bool moar)
 {
   size_t oldCount = m_tracks.size();
   size_t oldScrollPos = GetFirstVisibleLine();
-
   m_moarLink = moar;
   m_tracks.insert(m_tracks.begin() + m_tracks.size(), newTracks.begin(), newTracks.end());
+
+  if(m_tracks.size() == 0) {
+    Disable();
+  } else if(!IsEnabled()) {
+    Enable();
+  }
 
   SetItemCount(m_tracks.size() + (moar ? 1 : 0));
   ScrollToLine(oldScrollPos + 1);
@@ -69,9 +74,15 @@ wxString TrackList::OnGetItem(size_t n) const
     wxString d;
     d.Printf(_T("%d:%.2d"), m_tracks[n].GetDuration() / 60, m_tracks[n].GetDuration() % 60);
 
-    ret = _T("<table width=100% cellpadding=0 cellspacing=0><tr><td><B>") +
+    wxString playIcon = _T("<td width=18 valign=top>");
+    if (n == 5 || n == 8) playIcon += _T("<img src='bitmaps/icons/control.png' border=0>");
+    playIcon += _T("</td>");
+
+    ret = _T("<table width=100% cellpadding=0 cellspacing=0><tr>") +
+        playIcon +
+        _T("<td><B>") +
         m_tracks[n].GetArtist() + _T("</B> &mdash; ") + m_tracks[n].GetTitle() +
-        _T("</td><td align=right valign=top><font color=#666>") + d +
+        _T("</td><td align=right valign=top width=70><font color=#666>") + d +
         _T("&nbsp;</font></td></tr></table>");
 
   } else if (m_tracks.size() == 0) {

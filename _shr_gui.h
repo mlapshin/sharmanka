@@ -29,6 +29,8 @@ namespace shr{ namespace gui{ class TrackList; } }
 #include <wx/gauge.h>
 #include <wx/listctrl.h>
 #include <wx/frame.h>
+#include <wx/html/htmlwin.h>
+#include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -74,6 +76,24 @@ namespace shr
 			public:
 				MainWindowBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("Шарманка"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 604,564 ), long style = wxDEFAULT_FRAME_STYLE|wxRESIZE_BORDER|wxTAB_TRAVERSAL, const wxString& name = wxT("SharmankaMain") );
 				~MainWindowBase();
+			
+		};
+		
+		///////////////////////////////////////////////////////////////////////////////
+		/// Class AboutDialogBase
+		///////////////////////////////////////////////////////////////////////////////
+		class AboutDialogBase : public wxDialog 
+		{
+			private:
+			
+			protected:
+				wxHtmlWindow* m_html;
+				wxStdDialogButtonSizer* m_sdbSizer1;
+				wxButton* m_sdbSizer1OK;
+			
+			public:
+				AboutDialogBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxT("О Шарманке"), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 386,327 ), long style = wxDEFAULT_DIALOG_STYLE );
+				~AboutDialogBase();
 			
 		};
 		

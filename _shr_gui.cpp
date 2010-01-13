@@ -134,3 +134,29 @@ MainWindowBase::~MainWindowBase()
 	m_query->Disconnect( wxEVT_SET_FOCUS, wxFocusEventHandler( MainWindowBase::OnQueryFocus ), NULL, this );
 	m_query->Disconnect( wxEVT_COMMAND_TEXT_ENTER, wxCommandEventHandler( MainWindowBase::OnQueryEnter ), NULL, this );
 }
+
+AboutDialogBase::AboutDialogBase( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxDialog( parent, id, title, pos, size, style )
+{
+	this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+	
+	wxBoxSizer* bSizer7;
+	bSizer7 = new wxBoxSizer( wxVERTICAL );
+	
+	m_html = new wxHtmlWindow( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_SCROLLBAR_AUTO );
+	m_html->SetBackgroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWFRAME ) );
+	
+	bSizer7->Add( m_html, 1, wxALL|wxEXPAND, 5 );
+	
+	m_sdbSizer1 = new wxStdDialogButtonSizer();
+	m_sdbSizer1OK = new wxButton( this, wxID_OK );
+	m_sdbSizer1->AddButton( m_sdbSizer1OK );
+	m_sdbSizer1->Realize();
+	bSizer7->Add( m_sdbSizer1, 0, wxEXPAND|wxALL, 5 );
+	
+	this->SetSizer( bSizer7 );
+	this->Layout();
+}
+
+AboutDialogBase::~AboutDialogBase()
+{
+}
