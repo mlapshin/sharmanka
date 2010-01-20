@@ -10,7 +10,7 @@ namespace shr
 
 // that conversion routine seems rather accurate
 // thanks to MPD mp3 decoder developers 
-static inline int
+static inline short
 mad_fixed_to_sample(mad_fixed_t sample)
 {
   enum {
@@ -50,6 +50,7 @@ int MADWork::Decode(ByteFlow &flow, SndOut &out)
 {
   int res = 0, to_decode = 0, filled = 0;
   unsigned char *rs = in_buf;
+  unsigned int samples = 0;
   do {
     if(!st.buffer || st.error == MAD_ERROR_BUFLEN) {
       size_t prefilled = 0, to_read = MADWork::in_size;
@@ -99,28 +100,27 @@ int MADWork::Decode(ByteFlow &flow, SndOut &out)
       }
       mad_synth_frame(&synth, &fr);
 
-      unsigned int o_byte = 0;
       for(unsigned int sn = 0; sn < synth.pcm.length; sn++) {
-	int sample;
-	sample = mad_fixed_to_sample(synth.pcm.samples[0][sn]);
-	// big-endian
-	out_buf[o_byte++] = (sample >> 8);
-	out_buf[o_byte++] = sample & 0xff;
+	out_buf[samples++] = mad_fixed_to_sample(synth.pcm.samples[0][sn]);
 	if(MAD_NCHANNELS(&fr.header) == 2) {
-	  sample = mad_fixed_to_sample(synth.pcm.samples[1][sn]);
-	  out_buf[o_byte++] = (sample >> 8);
-	  out_buf[o_byte++] = sample & 0xff;
+	  out_buf[samples++] = mad_fixed_to_sample(synth.pcm.samples[1][sn]);
 	}
-	if(o_byte >= MADWork::out_size) {
-	  out.Play(MADWork::out_size, reinterpret_cast<unsigned char *>(out_buf));
-	  o_byte = 0;
+	if(samples >= MADWork::out_size) {
+	  res = out.Play(samples/2, out_buf);
+	  if(res)
+	    return res;
+	  samples = 0;
 	}
       }
-      if(o_byte)
-	out.Play(o_byte, reinterpret_cast<unsigned char *>(out_buf));
+      //if(samples > 0)
+      //out.Play(samples/2, out_buf);
 
     }
   } while(filled > 0);
+
+  if(samples > 0)
+	res = out.Play(samples/2, out_buf);
+
   return res;
 }
 

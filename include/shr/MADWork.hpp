@@ -22,10 +22,10 @@ namespace shr
       struct mad_stream st;
       struct mad_frame fr;
       struct mad_synth synth;
-      static const size_t in_size = 4*8192;
-      static const size_t out_size = 8192;
+      static const size_t in_size = 128*1024;
+      static const size_t out_size = 2*4096;
       unsigned char in_buf[in_size];
-      char out_buf[out_size];
+      signed short out_buf[out_size];
   };
 };
 
