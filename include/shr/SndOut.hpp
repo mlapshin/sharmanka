@@ -5,7 +5,7 @@
 namespace shr {
   class SndOut {
     public:
-      virtual int Play(unsigned int samples, const unsigned char *pbuf) = 0;
+      virtual int Play(unsigned int samples, const void *pbuf) = 0;
   };
 }
 
