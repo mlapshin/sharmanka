@@ -4,15 +4,28 @@
 namespace shr
 {
 
+namespace gui { class MainWindow; class TrayIcon; }
+
 class MainWindow;
 
 class Application : public wxApp
 {
+ public:
+
+  inline const wxString& GetSid() const {
+    return m_sid;
+  }
+
+  void Exit();
+
  private:
 
   virtual bool OnInit();
+  virtual int OnExit();
 
-  MainWindow* m_main_window;
+  gui::MainWindow* m_main_window;
+  gui::TrayIcon* m_tray_icon;
+  wxString m_sid;
 };
 
 };
