@@ -34,7 +34,7 @@ ADD_EXECUTABLE(sharmanka
   ${HDRS}
 )
 
-ADD_EXECUTABLE(dummy src/debug/Dummy.cpp src/MADWork.cpp src/PortAudio.cpp ${HDRS})
+ADD_EXECUTABLE(dummy src/debug/Dummy.cpp src/MADWork.cpp src/PortAudio.cpp src/PerfTimer.cpp ${HDRS})
 
 TARGET_LINK_LIBRARIES(sharmanka ${wxWidgets_LIBRARIES} ${MAD_LIBRARY} ${PORT_LIBRARY})
 TARGET_LINK_LIBRARIES(dummy ${MAD_LIBRARY} ${PORT_LIBRARY})
