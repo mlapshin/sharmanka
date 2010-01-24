@@ -7,8 +7,6 @@ FIND_PACKAGE(wxWidgets COMPONENTS core base xrc net REQUIRED)
 FIND_PACKAGE(SDL REQUIRED)
 FIND_LIBRARY(MAD_LIBRARY mad)
 FIND_PATH(MAD_INCLUDE_PATH mad.h)
-FIND_LIBRARY(PORT_LIBRARY portaudiocpp)
-FIND_PATH(PORT_INCLUDE_PATH portaudiocpp/PortAudioCpp.hxx)
 
 ##---------------------------------------------------
 ## Actual config file starts here
@@ -65,7 +63,7 @@ ADD_EXECUTABLE(
 
 ADD_EXECUTABLE(dummy src/debug/Dummy.cpp src/MADWork.cpp src/SDLAudio.cpp src/PerfTimer.cpp ${HDRS})
 
-TARGET_LINK_LIBRARIES(sharmanka ${wxWidgets_LIBRARIES} ${MAD_LIBRARY})
+TARGET_LINK_LIBRARIES(sharmanka ${wxWidgets_LIBRARIES} ${MAD_LIBRARY} ${SDL_LIBRARY})
 TARGET_LINK_LIBRARIES(dummy rt ${MAD_LIBRARY} ${SDL_LIBRARY})
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
