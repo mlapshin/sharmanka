@@ -29,7 +29,7 @@ mad_fixed_to_sample(mad_fixed_t sample)
   return sample >> (MAD_F_FRACBITS + 1 - bits);
 }
 
-MADWork::MADWork()
+MADWork::MADWork() : in_size(0), out_size(0)
 {
   std::cerr << "libmad codec stuff init" << std::endl;
   mad_stream_init(&st);
@@ -49,12 +49,13 @@ MADWork::~MADWork()
 int MADWork::Decode(ByteFlow &flow, SndOut &out)
 {
   int res = 0, to_decode = 0, filled = 0;
-  unsigned char *rs = in_buf;
+  //unsigned char *rs = in_buf;
   unsigned int samples = 0;
+  signed short *o_ptr = out_buf;
   do {
     if(!st.buffer || st.error == MAD_ERROR_BUFLEN) {
       size_t prefilled = 0, to_read = MADWork::in_size;
-      rs = in_buf;
+      unsigned char *rs = in_buf;
 
       if(st.next_frame) {
 	// last frame was not decoded fully
@@ -79,8 +80,8 @@ int MADWork::Decode(ByteFlow &flow, SndOut &out)
     }
 
     if(to_decode > 0) {
-      st.error = MAD_ERROR_NONE;
       int d_res;
+      st.error = MAD_ERROR_NONE;
       d_res = mad_frame_decode(&fr, &st);
       if(d_res) {
 	if(st.error == MAD_ERROR_BUFLEN) {
@@ -101,25 +102,27 @@ int MADWork::Decode(ByteFlow &flow, SndOut &out)
       mad_synth_frame(&synth, &fr);
 
       for(unsigned int sn = 0; sn < synth.pcm.length; sn++) {
-	out_buf[samples++] = mad_fixed_to_sample(synth.pcm.samples[0][sn]);
-	if(MAD_NCHANNELS(&fr.header) == 2) {
-	  out_buf[samples++] = mad_fixed_to_sample(synth.pcm.samples[1][sn]);
+	{
+	  short sample;
+	  sample = mad_fixed_to_sample(synth.pcm.samples[0][sn]);
+	  *o_ptr++ = sample;
+	  if(MAD_NCHANNELS(&fr.header) == 2)
+	    sample = mad_fixed_to_sample(synth.pcm.samples[1][sn]);
+	  *o_ptr++ = sample;
 	}
-	if(samples >= MADWork::out_size) {
-	  res = out.Play(samples/2, out_buf);
+	if(++samples >= MADWork::out_size) {
+	  res = out.Play(samples, out_buf);
 	  if(res)
 	    return res;
 	  samples = 0;
+	  o_ptr = out_buf;
 	}
       }
-      //if(samples > 0)
-      //out.Play(samples/2, out_buf);
-
     }
   } while(filled > 0);
 
   if(samples > 0)
-	res = out.Play(samples/2, out_buf);
+	res = out.Play(samples, out_buf);
 
   return res;
 }
