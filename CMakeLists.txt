@@ -24,6 +24,8 @@ INCLUDE_DIRECTORIES(
 # add wxWidgets definitions
 ADD_DEFINITIONS(${wxWidgets_DEFINITIONS})
 
+SET(CMAKE_BUILD_TYPE debug)
+
 # Custom pre-build step to generate GUI sources from wxFormBuilder project
 ADD_CUSTOM_COMMAND(
   OUTPUT ${CMAKE_SOURCE_DIR}/_shr_gui.h ${CMAKE_SOURCE_DIR}/_shr_gui.cpp
