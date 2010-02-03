@@ -56,7 +56,7 @@ wxString TrackSearchThread::GetPage(const wxString& path)
 Track TrackSearchThread::GetTrackFromAudioRow(const wxString& ar)
 {
   static wxRegEx op(_T("operate\\(([^)]+)\\)"));
-  static wxRegEx titles(_T("<b id=\"performer\\d+\">([^<]+)</b> - <span id=\"title\\d+\">(<a href=[^>]+>)?([^<]+)</(span|a)>"), wxRE_ADVANCED);
+  static wxRegEx titles(_T("<b id=\"performer\\d+\">([^<]+)</b><span>&nbsp;-&nbsp;</span><span id=\"title\\d+\">(<a href=[^>]+>)?([^<]+)</(span|a)>"), wxRE_ADVANCED);
   static wxRegEx drtn(_T("<div class=\"duration\">(\\d+):(\\d+)</div>"), wxRE_ADVANCED);
 
   size_t start;
