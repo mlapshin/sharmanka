@@ -11,7 +11,8 @@ namespace gui
 class MainWindow;
 
 enum {
-  TI_EXIT
+  TI_EXIT,
+  TI_ABOUT
 };
 
 class TrayIcon : public wxTaskBarIcon
@@ -25,6 +26,7 @@ class TrayIcon : public wxTaskBarIcon
 
   void OnLeftClick(wxTaskBarIconEvent& event);
   void OnMenuExitClick(wxCommandEvent& event);
+  void OnMenuAboutClick(wxCommandEvent& event);
 
   DECLARE_EVENT_TABLE()
 };

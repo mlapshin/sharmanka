@@ -10,6 +10,7 @@ BEGIN_EVENT_TABLE(TrayIcon, wxTaskBarIcon)
 
 EVT_TASKBAR_LEFT_DOWN(TrayIcon::OnLeftClick)
 EVT_MENU(TI_EXIT, TrayIcon::OnMenuExitClick)
+EVT_MENU(TI_ABOUT, TrayIcon::OnMenuAboutClick)
 
 END_EVENT_TABLE()
 
@@ -22,7 +23,7 @@ TrayIcon::TrayIcon(MainWindow* mw)
 wxMenu* TrayIcon::CreatePopupMenu()
 {
   wxMenu *menu = new wxMenu;
-  menu->Append(-1, _T("Hello world!"));
+  menu->Append(TI_ABOUT, _T("О программе"));
   menu->AppendSeparator();
   menu->Append(TI_EXIT, _T("Выход"));
 
@@ -31,12 +32,18 @@ wxMenu* TrayIcon::CreatePopupMenu()
 
 void TrayIcon::OnLeftClick(wxTaskBarIconEvent& event)
 {
+  // TODO: move it inside Application class
   m_mainWindow->Show(!m_mainWindow->IsShown());
 }
 
 void TrayIcon::OnMenuExitClick(wxCommandEvent& e)
 {
   wxGetApp().Exit();
+}
+
+void TrayIcon::OnMenuAboutClick(wxCommandEvent& e)
+{
+  wxGetApp().ShowAboutDialog();
 }
 
 }}

@@ -4,9 +4,12 @@
 namespace shr
 {
 
-namespace gui { class MainWindow; class TrayIcon; }
-
-class MainWindow;
+namespace gui
+{
+  class MainWindow;
+  class TrayIcon;
+  class AboutDialog;
+}
 
 class Application : public wxApp
 {
@@ -16,6 +19,8 @@ class Application : public wxApp
     return m_sid;
   }
 
+  void ShowAboutDialog();
+
   void Exit();
 
  private:
@@ -24,6 +29,7 @@ class Application : public wxApp
   virtual int OnExit();
 
   gui::MainWindow* m_main_window;
+  gui::AboutDialog* m_about;
   gui::TrayIcon* m_tray_icon;
   wxString m_sid;
 };
