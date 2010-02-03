@@ -16,16 +16,24 @@ namespace shr
     public:
       MADWork();
       ~MADWork();
+      void SetIn(size_t n, void *ptr) { // bytes
+	in_size = n;
+	in_buf = static_cast<unsigned char *>(ptr);
+      }
+      void SetOut(size_t n, void *ptr) { // samples
+	out_size = n;
+	out_buf = static_cast<signed short *>(ptr);
+      }
       int Decode(ByteFlow &, SndOut &);
 
     private:
       struct mad_stream st;
       struct mad_frame fr;
       struct mad_synth synth;
-      static const size_t in_size = 128*1024;
-      static const size_t out_size = 2*4096;
-      unsigned char in_buf[in_size];
-      signed short out_buf[out_size];
+      size_t in_size;
+      size_t out_size;
+      unsigned char *in_buf;
+      signed short *out_buf;
   };
 };
 
