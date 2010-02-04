@@ -8,11 +8,11 @@
 namespace shr {
 namespace gui {
 
-class TrackList : public wxHtmlListBox
+class TrackListCtrl : public wxHtmlListBox
 {
  public:
-  TrackList(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& s = wxDefaultSize, long unused_arg = 0); // TODO: remove unused style arg
-  ~TrackList();
+  TrackListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& s = wxDefaultSize, long unused_arg = 0); // TODO: remove unused style arg
+  ~TrackListCtrl();
 
   void SetTracks(const TrackVector& newTracks, bool moar = true);
   void AppendTracks(const TrackVector& newTracks, bool moar = true);

@@ -8,7 +8,7 @@
 #ifndef ___shr_gui__
 #define ___shr_gui__
 
-namespace shr{ namespace gui{ class TrackList; } }
+namespace shr{ namespace gui{ class TrackListCtrl; } }
 
 #include <wx/string.h>
 #include <wx/textctrl.h>
@@ -65,7 +65,7 @@ namespace shr
 				wxTextCtrl* m_query;
 				wxGauge* m_searchGauge;
 				wxStaticText* m_tracksCount;
-				shr::gui::TrackList* m_trackList;
+				shr::gui::TrackListCtrl* m_trackList;
 				
 				// Virtual event handlers, overide them in your derived class
 				virtual void OnQueryUnfocus( wxFocusEvent& event ){ event.Skip(); }

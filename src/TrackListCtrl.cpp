@@ -1,5 +1,5 @@
 #include "shr/Prerequisites.hpp"
-#include "shr/gui/TrackList.hpp"
+#include "shr/gui/TrackListCtrl.hpp"
 #include "wx/clipbrd.h"
 #include "shr/gui/MainWindow.hpp"
 
@@ -10,25 +10,25 @@ enum {
   POPUP_COPY_URL
 };
 
-BEGIN_EVENT_TABLE(TrackList, wxHtmlListBox)
-  EVT_RIGHT_DOWN(TrackList::OnRightMouseDown)
-  EVT_LEFT_DCLICK(TrackList::OnLeftMouseDClick)
-  EVT_LEFT_DOWN(TrackList::OnLeftMouseDown)
+BEGIN_EVENT_TABLE(TrackListCtrl, wxHtmlListBox)
+  EVT_RIGHT_DOWN(TrackListCtrl::OnRightMouseDown)
+  EVT_LEFT_DCLICK(TrackListCtrl::OnLeftMouseDClick)
+  EVT_LEFT_DOWN(TrackListCtrl::OnLeftMouseDown)
 END_EVENT_TABLE()
 
-TrackList::TrackList(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& s, long style)
+TrackListCtrl::TrackListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& s, long style)
     : wxHtmlListBox(parent, id, pos, s, wxSUNKEN_BORDER), m_moarLink(false)
 {
   SetMargins(3, 3);
   SetTracks(m_tracks);
 }
 
-TrackList::~TrackList()
+TrackListCtrl::~TrackListCtrl()
 {
 
 }
 
-void TrackList::OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) const
+void TrackListCtrl::OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) const
 {
   const bool isMoarBtn = (m_moarLink && n == m_tracks.size());
   const bool isSelected = (IsSelected(n) && !isMoarBtn),
@@ -42,13 +42,13 @@ void TrackList::OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) const
   }
 }
 
-void TrackList::SetTracks(const TrackVector& newTracks, bool moar)
+void TrackListCtrl::SetTracks(const TrackVector& newTracks, bool moar)
 {
   m_tracks.clear();
   AppendTracks(newTracks, moar);
 }
 
-void TrackList::AppendTracks(const TrackVector& newTracks, bool moar)
+void TrackListCtrl::AppendTracks(const TrackVector& newTracks, bool moar)
 {
   size_t oldCount = m_tracks.size();
   size_t oldScrollPos = GetFirstVisibleLine();
@@ -66,7 +66,7 @@ void TrackList::AppendTracks(const TrackVector& newTracks, bool moar)
   RefreshLines(oldCount, m_tracks.size() + (moar ? 1 : 0));
 }
 
-wxString TrackList::OnGetItem(size_t n) const
+wxString TrackListCtrl::OnGetItem(size_t n) const
 {
   wxString ret;
 
@@ -96,7 +96,7 @@ wxString TrackList::OnGetItem(size_t n) const
   return ret;
 }
 
-void TrackList::OnRightMouseDown(wxMouseEvent& event)
+void TrackListCtrl::OnRightMouseDown(wxMouseEvent& event)
 {
   SetFocus();
 
@@ -108,17 +108,17 @@ void TrackList::OnRightMouseDown(wxMouseEvent& event)
     wxMenu mnu;
     mnu.SetClientData(&m_tracks[item]);
     mnu.Append(-1, _T("Копировать URL файла"));
-    mnu.Connect(wxEVT_COMMAND_MENU_SELECTED, wxObjectEventFunction(&TrackList::OnMenuCopyTrackUrl), NULL, this);
+    mnu.Connect(wxEVT_COMMAND_MENU_SELECTED, wxObjectEventFunction(&TrackListCtrl::OnMenuCopyTrackUrl), NULL, this);
     PopupMenu(&mnu);
   }
 }
 
-void TrackList::OnLeftMouseDClick(wxMouseEvent& event)
+void TrackListCtrl::OnLeftMouseDClick(wxMouseEvent& event)
 {
   // TODO: play track here
 }
 
-void TrackList::OnMenuCopyTrackUrl(wxCommandEvent& event)
+void TrackListCtrl::OnMenuCopyTrackUrl(wxCommandEvent& event)
 {
   Track* t = reinterpret_cast<Track*>(static_cast<wxMenu *>(event.GetEventObject())->GetClientData());
 
@@ -128,7 +128,7 @@ void TrackList::OnMenuCopyTrackUrl(wxCommandEvent& event)
   }
 }
 
-void TrackList::OnLeftMouseDown(wxMouseEvent& event)
+void TrackListCtrl::OnLeftMouseDown(wxMouseEvent& event)
 {
   int item = HitTest(event.GetPosition());
 

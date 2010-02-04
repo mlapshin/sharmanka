@@ -2,7 +2,7 @@
 #include "shr/gui/MainWindow.hpp"
 
 #include "shr/TrackSearchThread.hpp"
-#include "shr/gui/TrackList.hpp"
+#include "shr/gui/TrackListCtrl.hpp"
 
 namespace shr
 {

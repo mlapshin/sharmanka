@@ -5,7 +5,7 @@
 // PLEASE DO "NOT" EDIT THIS FILE!
 ///////////////////////////////////////////////////////////////////////////
 
-#include "shr/gui/TrackList.hpp"
+#include "shr/gui/TrackListCtrl.hpp"
 
 #include "_shr_gui.h"
 
@@ -115,7 +115,7 @@ MainWindowBase::MainWindowBase( wxWindow* parent, wxWindowID id, const wxString&
 	
 	bSizer->Add( m_searchSizer, 0, wxEXPAND, 5 );
 	
-	m_trackList = new shr::gui::TrackList( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_NO_HEADER|wxLC_NO_SORT_HEADER|wxLC_REPORT|wxSUNKEN_BORDER|wxVSCROLL );
+	m_trackList = new shr::gui::TrackListCtrl( this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxLC_NO_HEADER|wxLC_NO_SORT_HEADER|wxLC_REPORT|wxSUNKEN_BORDER|wxVSCROLL );
 	bSizer->Add( m_trackList, 1, wxEXPAND|wxBOTTOM|wxRIGHT|wxLEFT, 5 );
 	
 	this->SetSizer( bSizer );
