@@ -43,7 +43,7 @@ void TrackListCtrl::OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) con
   }
 }
 
-void TrackListCtrl::UpdateList(int upTo)
+void TrackListCtrl::UpdateList(int from)
 {
   wxASSERT(m_trackList);
   size_t oldScrollPos = GetFirstVisibleLine();
@@ -57,12 +57,16 @@ void TrackListCtrl::UpdateList(int upTo)
 
   SetItemCount(listItemsCount);
   ScrollToLine(oldScrollPos + 1);
-  RefreshLines(upTo, listItemsCount);
+  RefreshLines(from, listItemsCount);
 }
 
 void TrackListCtrl::SetTrackList(TrackList* tl)
 {
+  wxASSERT(m_trackList == 0);
   m_trackList = tl;
+  wxASSERT(m_trackList != 0);
+
+  m_trackList->AddObserver(this);
   UpdateList(0);
 }
 
@@ -71,6 +75,16 @@ void TrackListCtrl::OnTracksAppended(const TrackVector& newTracks)
   UpdateList(m_trackList->GetTracksCount() - newTracks.size());
 }
 
+void TrackListCtrl::OnTracksSet(const TrackVector& newTracks)
+{
+  UpdateList(0);
+}
+
+void TrackListCtrl::SetMoarLink(bool moar)
+{
+  m_moarLink = moar;
+  UpdateList(m_trackList->GetTracksCount());
+}
 
 wxString TrackListCtrl::OnGetItem(size_t n) const
 {
@@ -141,10 +155,9 @@ void TrackListCtrl::OnMenuCopyTrackUrl(wxCommandEvent& event)
 void TrackListCtrl::OnLeftMouseDown(wxMouseEvent& event)
 {
   int item = HitTest(event.GetPosition());
-  if(m_trackList == 0 || m_trackList->GetTracksCount() <= item) {
+  if(m_trackList == 0 || (!m_moarLink && m_trackList->GetTracksCount() <= item)) {
     return;
   }
-
 
   if (item != wxNOT_FOUND && item == m_trackList->GetTracksCount()) {
     wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, TLE_MOAR_TRACKS );

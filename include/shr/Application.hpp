@@ -4,6 +4,7 @@
 namespace shr
 {
 
+class TrackList;
 namespace gui
 {
   class MainWindow;
@@ -20,8 +21,12 @@ class Application : public wxApp
   }
 
   void ShowAboutDialog();
-
   void Exit();
+
+  inline TrackList* GetTrackList()
+  {
+    return m_tracks;
+  }
 
  private:
 
@@ -31,6 +36,7 @@ class Application : public wxApp
   gui::MainWindow* m_main_window;
   gui::AboutDialog* m_about;
   gui::TrayIcon* m_tray_icon;
+  TrackList* m_tracks;
   wxString m_sid;
 };
 

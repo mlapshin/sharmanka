@@ -2,6 +2,7 @@
 #define _TRACKLIST_H_
 
 #include "shr/Track.hpp"
+#include <list>
 
 namespace shr {
 

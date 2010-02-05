@@ -3,6 +3,7 @@
 #include "shr/gui/MainWindow.hpp"
 #include "shr/gui/AboutDialog.hpp"
 #include "shr/gui/TrayIcon.hpp"
+#include "shr/TrackList.hpp"
 #include "wx/xrc/xmlres.h"
 
 IMPLEMENT_APP(shr::Application)
@@ -18,6 +19,7 @@ bool Application::OnInit()
   wxXmlResource::Get()->InitAllHandlers();
   InitXmlResource();
 
+  m_tracks = new TrackList();
   m_main_window = new gui::MainWindow;
   m_tray_icon = new gui::TrayIcon(m_main_window);
 
@@ -37,6 +39,7 @@ void Application::Exit()
   m_main_window->Close(true);
 
   delete m_tray_icon;
+  delete m_tracks;
 }
 
 int Application::OnExit()

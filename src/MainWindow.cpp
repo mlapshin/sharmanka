@@ -1,5 +1,6 @@
 #include "shr/Prerequisites.hpp"
 #include "shr/gui/MainWindow.hpp"
+#include "shr/Application.hpp"
 
 #include "shr/TrackSearchThread.hpp"
 #include "shr/gui/TrackListCtrl.hpp"
@@ -22,6 +23,7 @@ MainWindow::MainWindow()
   Connect(TSE_PULSE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchPulse) );
 
   Connect(TLE_MOAR_TRACKS, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnMoarTracksRequested) );
+  m_trackList->SetTrackList(wxGetApp().GetTrackList());
 
   SetQueryPlaceholder();
 }
@@ -46,7 +48,7 @@ void MainWindow::OnQueryEnter( wxCommandEvent& event )
   if (m_query->GetValue() != _T("")) {
     RunQuery(new TrackSearchThread(this, m_query->GetValue(), 0));
   } else {
-    m_trackList->SetTracks(TrackVector());
+    wxGetApp().GetTrackList()->SetTracks(TrackVector());
     m_searchSizer->Show(m_tracksCount, false);
     m_searchSizer->Layout();
   }
@@ -115,13 +117,15 @@ void MainWindow::OnTrackSearchCompleted( wxCommandEvent& event )
 {
   wxString counter;
 
+  m_trackList->SetMoarLink(m_trackSearchThread->HasMoreTracks());
+
   if (m_trackSearchThread->GetOffset() > 0) {
-    m_trackList->AppendTracks(m_trackSearchThread->GetTracks(), m_trackSearchThread->HasMoreTracks());
+    wxGetApp().GetTrackList()->AppendTracks(m_trackSearchThread->GetTracks());
   } else {
-    m_trackList->SetTracks(m_trackSearchThread->GetTracks(), m_trackSearchThread->HasMoreTracks());
+    wxGetApp().GetTrackList()->SetTracks(m_trackSearchThread->GetTracks());
   }
 
-  counter.Printf(_T("%d / %d"), m_trackList->GetTracks().size(), m_trackSearchThread->GetTotalTracksCount());
+  counter.Printf(_T("%d / %d"), wxGetApp().GetTrackList()->GetTracksCount(), m_trackSearchThread->GetTotalTracksCount());
   m_tracksCount->SetLabel(counter);
   ShowSearchGauge(false);
 }

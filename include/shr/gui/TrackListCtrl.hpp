@@ -18,11 +18,7 @@ class TrackListCtrl : public wxHtmlListBox, TrackListObserver
   virtual void OnTracksSet(const TrackVector& newTracks);
   virtual void OnTracksAppended(const TrackVector& appendedTracks);
 
-  inline void SetMoarLink(bool moar)
-  {
-    m_moarLink = moar;
-  }
-
+  void SetMoarLink(bool moar);
   inline TrackList* GetTrackList() const
   {
     return m_trackList;
@@ -37,7 +33,7 @@ class TrackListCtrl : public wxHtmlListBox, TrackListObserver
   void OnLeftMouseDClick(wxMouseEvent& event);
   void OnMenuCopyTrackUrl(wxCommandEvent& event);
 
-  void UpdateList(int upTo);
+  void UpdateList(int from);
 
   virtual wxString OnGetItem(size_t n) const;
 
