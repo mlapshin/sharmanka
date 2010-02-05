@@ -12,7 +12,6 @@ enum {
 
 BEGIN_EVENT_TABLE(TrackListCtrl, wxHtmlListBox)
   EVT_RIGHT_DOWN(TrackListCtrl::OnRightMouseDown)
-  EVT_LEFT_DCLICK(TrackListCtrl::OnLeftMouseDClick)
   EVT_LEFT_DOWN(TrackListCtrl::OnLeftMouseDown)
 END_EVENT_TABLE()
 
@@ -135,11 +134,6 @@ void TrackListCtrl::OnRightMouseDown(wxMouseEvent& event)
     mnu.Connect(wxEVT_COMMAND_MENU_SELECTED, wxObjectEventFunction(&TrackListCtrl::OnMenuCopyTrackUrl), NULL, this);
     PopupMenu(&mnu);
   }
-}
-
-void TrackListCtrl::OnLeftMouseDClick(wxMouseEvent& event)
-{
-  // TODO: play track here
 }
 
 void TrackListCtrl::OnMenuCopyTrackUrl(wxCommandEvent& event)
