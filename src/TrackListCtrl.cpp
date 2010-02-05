@@ -20,7 +20,8 @@ TrackListCtrl::TrackListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos
     : wxHtmlListBox(parent, id, pos, s, wxSUNKEN_BORDER), m_moarLink(false)
 {
   SetMargins(3, 3);
-  SetTracks(m_tracks);
+  m_trackList = 0;
+  // SetTracks(m_tracks);
 }
 
 TrackListCtrl::~TrackListCtrl()
@@ -30,7 +31,7 @@ TrackListCtrl::~TrackListCtrl()
 
 void TrackListCtrl::OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) const
 {
-  const bool isMoarBtn = (m_moarLink && n == m_tracks.size());
+  const bool isMoarBtn = (m_moarLink && n == m_trackList->GetTracksCount());
   const bool isSelected = (IsSelected(n) && !isMoarBtn),
       isCurrent = (IsCurrent(n) && !isMoarBtn),
       isOdd = (n % 2 != 0);
@@ -42,37 +43,38 @@ void TrackListCtrl::OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) con
   }
 }
 
-void TrackListCtrl::SetTracks(const TrackVector& newTracks, bool moar)
+void TrackListCtrl::SetTrackList(TrackList* tl)
 {
-  m_tracks.clear();
-  AppendTracks(newTracks, moar);
+  m_trackList = tl;
 }
 
-void TrackListCtrl::AppendTracks(const TrackVector& newTracks, bool moar)
+void TrackListCtrl::OnTracksAppended(const TrackVector& newTracks)
 {
-  size_t oldCount = m_tracks.size();
-  size_t oldScrollPos = GetFirstVisibleLine();
-  m_moarLink = moar;
-  m_tracks.insert(m_tracks.begin() + m_tracks.size(), newTracks.begin(), newTracks.end());
+  wxASSERT(m_trackList);
 
-  if(m_tracks.size() == 0) {
+  size_t oldCount = m_trackList->GetTracksCount() - newTracks.size();
+  size_t oldScrollPos = GetFirstVisibleLine();
+  size_t listItemsCount = m_trackList->GetTracksCount() + (m_moarLink ? 1 : 0);
+
+  if(m_trackList->GetTracksCount() == 0) {
     Disable();
   } else if(!IsEnabled()) {
     Enable();
   }
 
-  SetItemCount(m_tracks.size() + (moar ? 1 : 0));
+  SetItemCount(listItemsCount);
   ScrollToLine(oldScrollPos + 1);
-  RefreshLines(oldCount, m_tracks.size() + (moar ? 1 : 0));
+  RefreshLines(oldCount, listItemsCount);
 }
+
 
 wxString TrackListCtrl::OnGetItem(size_t n) const
 {
   wxString ret;
 
-  if (m_tracks.size() > n) {
+  if (m_trackList != 0 && m_trackList->GetTracksCount() > n) {
     wxString d;
-    d.Printf(_T("%d:%.2d"), m_tracks[n].GetDuration() / 60, m_tracks[n].GetDuration() % 60);
+    d.Printf(_T("%d:%.2d"), m_trackList->GetTrack(n)->GetDuration() / 60, m_trackList->GetTrack(n)->GetDuration() % 60);
 
     wxString playIcon = _T("<td width=18 valign=top>");
     if (n == 5 || n == 8) playIcon += _T("<img src='bitmaps/icons/control.png' border=0>");
@@ -81,14 +83,14 @@ wxString TrackListCtrl::OnGetItem(size_t n) const
     ret = _T("<table width=100% cellpadding=0 cellspacing=0><tr>") +
         playIcon +
         _T("<td><B>") +
-        m_tracks[n].GetArtist() + _T("</B> &mdash; ") + m_tracks[n].GetTitle() +
+        m_trackList->GetTrack(n)->GetArtist() + _T("</B> &mdash; ") + m_trackList->GetTrack(n)->GetTitle() +
         _T("</td><td align=right valign=top width=70><font color=#666>") + d +
         _T("&nbsp;</font></td></tr></table>");
 
-  } else if (m_tracks.size() == 0) {
+  } else if (m_trackList == 0 || m_trackList->GetTracksCount() == 0) {
     // Sorry nothing found message
     ret = _T("<br><center><font color=#aaa size=+1><b>Либо Вы еще ничего не искали, либо по Вашему запросу ничего не найдено</b></font></center>");
-  } else if (m_tracks.size() == n) {
+  } else if (m_trackList != 0 && m_trackList->GetTracksCount() == n && m_moarLink) {
     // MOAR link
     ret = _T("<center><a href=\"#\"><b>Еще музыки!</b></a></center>");
   }
@@ -102,11 +104,15 @@ void TrackListCtrl::OnRightMouseDown(wxMouseEvent& event)
 
   int item = HitTest(event.GetPosition());
 
+  if(m_trackList == 0 || m_trackList->GetTracksCount() <= item) {
+    return;
+  }
+
   if (item != wxNOT_FOUND) {
     DoHandleItemClick(item, 0);
 
     wxMenu mnu;
-    mnu.SetClientData(&m_tracks[item]);
+    mnu.SetClientData(reinterpret_cast<void*>(m_trackList->GetTrack(item)));
     mnu.Append(-1, _T("Копировать URL файла"));
     mnu.Connect(wxEVT_COMMAND_MENU_SELECTED, wxObjectEventFunction(&TrackListCtrl::OnMenuCopyTrackUrl), NULL, this);
     PopupMenu(&mnu);
@@ -131,8 +137,12 @@ void TrackListCtrl::OnMenuCopyTrackUrl(wxCommandEvent& event)
 void TrackListCtrl::OnLeftMouseDown(wxMouseEvent& event)
 {
   int item = HitTest(event.GetPosition());
+  if(m_trackList == 0 || m_trackList->GetTracksCount() <= item) {
+    return;
+  }
 
-  if (item != wxNOT_FOUND && item == m_tracks.size()) {
+
+  if (item != wxNOT_FOUND && item == m_trackList->GetTracksCount()) {
     wxCommandEvent event( wxEVT_COMMAND_MENU_SELECTED, TLE_MOAR_TRACKS );
     GetEventHandler()->ProcessEvent( event );
   } else {

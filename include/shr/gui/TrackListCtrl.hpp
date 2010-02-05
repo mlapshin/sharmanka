@@ -1,28 +1,34 @@
-#ifndef _TRACKLIST_H_
-#define _TRACKLIST_H_
+#ifndef _TRACKLISTCTRL_H_
+#define _TRACKLISTCTRL_H_
 
 #include "wx/htmllbox.h"
-#include "shr/Track.hpp"
-#include <vector>
+#include "shr/TrackList.hpp"
 
 namespace shr {
 namespace gui {
 
-class TrackListCtrl : public wxHtmlListBox
+class TrackListCtrl : public wxHtmlListBox, TrackListObserver
 {
  public:
   TrackListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& s = wxDefaultSize, long unused_arg = 0); // TODO: remove unused style arg
   ~TrackListCtrl();
 
-  void SetTracks(const TrackVector& newTracks, bool moar = true);
-  void AppendTracks(const TrackVector& newTracks, bool moar = true);
-
   void OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) const;
 
-  inline const TrackVector& GetTracks() const
+  virtual void OnTracksSet(const TrackVector& newTracks);
+  virtual void OnTracksAppended(const TrackVector& appendedTracks);
+
+  inline void SetMoarLink(bool moar)
   {
-    return m_tracks;
+    m_moarLink = moar;
   }
+
+  inline TrackList* GetTrackList() const
+  {
+    return m_trackList;
+  }
+
+  void SetTrackList(TrackList* tl);
 
  protected:
 
@@ -33,12 +39,12 @@ class TrackListCtrl : public wxHtmlListBox
 
   virtual wxString OnGetItem(size_t n) const;
 
-  TrackVector m_tracks;
   bool m_moarLink;
+  TrackList* m_trackList;
 
   DECLARE_EVENT_TABLE()
 };
 
 }}
 
-#endif /* _TRACKLIST_H_ */
+#endif /* _TRACKLISTCTRL_H_ */
