@@ -30,7 +30,6 @@ class TrackListCtrl : public wxHtmlListBox, TrackListObserver
 
   void OnLeftMouseDown( wxMouseEvent& event );
   void OnRightMouseDown(wxMouseEvent& event);
-  void OnLeftMouseDClick(wxMouseEvent& event);
   void OnMenuCopyTrackUrl(wxCommandEvent& event);
 
   void UpdateList(int from);
