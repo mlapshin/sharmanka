@@ -43,16 +43,9 @@ void TrackListCtrl::OnDrawBackground(wxDC& dc, const wxRect& rect, size_t n) con
   }
 }
 
-void TrackListCtrl::SetTrackList(TrackList* tl)
-{
-  m_trackList = tl;
-}
-
-void TrackListCtrl::OnTracksAppended(const TrackVector& newTracks)
+void TrackListCtrl::UpdateList(int upTo)
 {
   wxASSERT(m_trackList);
-
-  size_t oldCount = m_trackList->GetTracksCount() - newTracks.size();
   size_t oldScrollPos = GetFirstVisibleLine();
   size_t listItemsCount = m_trackList->GetTracksCount() + (m_moarLink ? 1 : 0);
 
@@ -64,7 +57,18 @@ void TrackListCtrl::OnTracksAppended(const TrackVector& newTracks)
 
   SetItemCount(listItemsCount);
   ScrollToLine(oldScrollPos + 1);
-  RefreshLines(oldCount, listItemsCount);
+  RefreshLines(upTo, listItemsCount);
+}
+
+void TrackListCtrl::SetTrackList(TrackList* tl)
+{
+  m_trackList = tl;
+  UpdateList(0);
+}
+
+void TrackListCtrl::OnTracksAppended(const TrackVector& newTracks)
+{
+  UpdateList(m_trackList->GetTracksCount() - newTracks.size());
 }
 
 

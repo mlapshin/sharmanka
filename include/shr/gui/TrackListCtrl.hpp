@@ -37,6 +37,8 @@ class TrackListCtrl : public wxHtmlListBox, TrackListObserver
   void OnLeftMouseDClick(wxMouseEvent& event);
   void OnMenuCopyTrackUrl(wxCommandEvent& event);
 
+  void UpdateList(int upTo);
+
   virtual wxString OnGetItem(size_t n) const;
 
   bool m_moarLink;
