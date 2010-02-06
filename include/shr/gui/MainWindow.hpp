@@ -18,15 +18,15 @@ class MainWindow: public MainWindowBase
   MainWindow();
   ~MainWindow();
 
-  void OnQueryEnter( wxCommandEvent& event );
-  void OnQueryFocus( wxFocusEvent& event );
-  void OnQueryUnfocus( wxFocusEvent& event );
+  void OnQueryEnter(wxCommandEvent& event);
+  void OnQueryFocus(wxFocusEvent& event);
+  void OnQueryUnfocus(wxFocusEvent& event);
 
-  void OnTrackSearchError( wxCommandEvent& event );
-  void OnTrackSearchPulse( wxCommandEvent& event );
-  void OnTrackSearchCompleted( wxCommandEvent& event );
+  void OnTrackSearchError(wxCommandEvent& event);
+  void OnTrackSearchPulse(wxCommandEvent& event);
+  void OnTrackSearchCompleted(wxCommandEvent& event);
 
-  void OnMoarTracksRequested( wxCommandEvent& event );
+  void OnMoarTracksRequested(wxCommandEvent& event);
 
   void OnClose(wxCloseEvent& e);
 
