@@ -43,7 +43,7 @@ void MainWindow::TerminateCurrentSearch()
   }
 }
 
-void MainWindow::OnQueryEnter( wxCommandEvent& event )
+void MainWindow::OnQueryEnter(wxCommandEvent& event)
 {
   if (m_query->GetValue() != _T("")) {
     RunQuery(new TrackSearchThread(this, m_query->GetValue(), 0));
@@ -77,21 +77,21 @@ void MainWindow::OnMoarTracksRequested(wxCommandEvent& e)
   QueryMoreTracks();
 }
 
-void MainWindow::OnQueryFocus( wxFocusEvent& event )
+void MainWindow::OnQueryFocus(wxFocusEvent& event)
 {
   if (m_queryPlaceholder) {
     RemoveQueryPlaceholder();
   }
 }
 
-void MainWindow::OnQueryUnfocus( wxFocusEvent& event )
+void MainWindow::OnQueryUnfocus(wxFocusEvent& event)
 {
   if (m_query->GetValue().Trim().Length() == 0) {
     SetQueryPlaceholder();
   }
 }
 
-void MainWindow::OnTrackSearchError( wxCommandEvent& event )
+void MainWindow::OnTrackSearchError(wxCommandEvent& event)
 {
   wxMessageBox(_T("Мда, похоже что-то пошло не так. Скорее всего проблема в Вашем подключении к интернету, но вовсе не обязательно - всякое бывает. В любом случае, постарайтесь сильно не переживать по этому поводу, все обязательно наладится."), _T("HTTP Error"), wxICON_ERROR);
   TerminateCurrentSearch();
@@ -113,7 +113,7 @@ void MainWindow::RemoveQueryPlaceholder()
   }
 }
 
-void MainWindow::OnTrackSearchCompleted( wxCommandEvent& event )
+void MainWindow::OnTrackSearchCompleted(wxCommandEvent& event)
 {
   wxString counter;
 
@@ -130,7 +130,7 @@ void MainWindow::OnTrackSearchCompleted( wxCommandEvent& event )
   ShowSearchGauge(false);
 }
 
-void MainWindow::OnTrackSearchPulse( wxCommandEvent& event )
+void MainWindow::OnTrackSearchPulse(wxCommandEvent& event)
 {
   if(event.GetInt() > 0) {
     m_searchGauge->SetValue(event.GetInt());
