@@ -3,3 +3,6 @@ CMakeFiles/*
 Makefile
 cmake_install.cmake
 bin/*
+_resources.cpp
+_shr_gui.cpp
+_shr_gui.h
