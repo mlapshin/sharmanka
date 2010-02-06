@@ -18,11 +18,11 @@ END_EVENT_TABLE()
 MainWindow::MainWindow()
   : MainWindowBase(NULL)
 {
-  Connect(TSE_COMPLETED, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchCompleted) );
-  Connect(TSE_ERROR, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchError) );
-  Connect(TSE_PULSE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchPulse) );
+  Connect(TSE_COMPLETED, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchCompleted));
+  Connect(TSE_ERROR, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchError));
+  Connect(TSE_PULSE, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnTrackSearchPulse));
 
-  Connect(TLE_MOAR_TRACKS, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnMoarTracksRequested) );
+  Connect(TLE_MOAR_TRACKS, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(MainWindow::OnMoarTracksRequested));
   m_trackList->SetTrackList(wxGetApp().GetTrackList());
 
   SetQueryPlaceholder();
